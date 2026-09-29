@@ -377,14 +377,15 @@ function budgetHTML(){
   var lo=0,hi=0,conf=0,groups=[];
   BUD.forEach(function(g){var gl=0,gh=0;g.rows.forEach(function(r){gl+=r[5];gh+=r[6];if(r[2]!=='est'){conf+=r[5];}});lo+=gl;hi+=gh;g.lo=gl;g.hi=gh;});
   var slices=[['國際線機票',522081,'#2a78d6'],['住宿',(BUD[1].lo+BUD[1].hi)/2,'#eb6834'],['美國國內交通',(BUD[0].lo+BUD[0].hi)/2-522081,'#1baf7a'],['餐飲',(BUD[2].lo+BUD[2].hi)/2,'#eda100'],['門票・活動',(BUD[3].lo+BUD[3].hi)/2,'#e87ba4']];
-  var T=slices.reduce(function(a,b){return a+b[1];},0),a=-Math.PI/2,paths='',labels='',leg='';
+  var T=slices.reduce(function(a,b){return a+b[1];},0),a=-Math.PI/2,paths='',seps='',labels='',leg='';
   slices.forEach(function(sl){var da=sl[1]/T*2*Math.PI,b=a+da,x1=100+95*Math.cos(a),y1=100+95*Math.sin(a),x2=100+95*Math.cos(b),y2=100+95*Math.sin(b);
-    paths+='<path d="M100,100 L'+x1.toFixed(1)+','+y1.toFixed(1)+' A95,95 0 '+(da>Math.PI?1:0)+' 1 '+x2.toFixed(1)+','+y2.toFixed(1)+' Z" fill="'+sl[2]+'" stroke="#fffdf9" stroke-width="2"/>';
+    paths+='<path d="M100,100 L'+x1.toFixed(2)+','+y1.toFixed(2)+' A95,95 0 '+(da>Math.PI?1:0)+' 1 '+x2.toFixed(2)+','+y2.toFixed(2)+' Z" fill="'+sl[2]+'"/>';
+    seps+='<line x1="100" y1="100" x2="'+(100+96*Math.cos(a)).toFixed(2)+'" y2="'+(100+96*Math.sin(a)).toFixed(2)+'"/>';
     var pc=(sl[1]/T*100);if(pc>=7){var m=(a+b)/2;labels+='<text x="'+(100+58*Math.cos(m)).toFixed(1)+'" y="'+(100+58*Math.sin(m)).toFixed(1)+'" text-anchor="middle" dominant-baseline="middle" font-size="12" font-weight="700" fill="#fff">'+pc.toFixed(0)+'%</text>';}
     leg+='<li><i style="background:'+sl[2]+'"></i><span>'+sl[0]+'</span><span class="p num">'+pc.toFixed(1)+'%</span><span class="v num">約 '+wan(sl[1])+' 萬</span></li>';a=b;});
   var h='<div class="dhead"><div><div class="n">BUDGET</div><h1>預算</h1><div class="w">3 人・美金以 1 USD ≈ 30.6 TWD 換算</div></div></div>';
   h+='<div class="kpi"><div class="card"><div class="k">總預算</div><div class="big num">約 '+wan(lo)+'–'+wan(hi)+' 萬</div></div><div class="card"><div class="k">已訂＋有報價（金額確定）</div><div class="big num">約 '+wan(conf)+' 萬</div></div><div class="card"><div class="k">估算的部分</div><div class="big num">約 '+wan(lo-conf)+'–'+wan(hi-conf)+' 萬</div></div></div>';
-  h+='<div class="sec-t">比例（以中間值約 '+wan(T)+' 萬計算）</div><div class="pie-wrap"><svg viewBox="0 0 200 200" width="180" height="180" role="img" aria-label="預算比例圓餅圖">'+paths+labels+'</svg><ul class="leg">'+leg+'</ul></div>';
+  h+='<div class="sec-t">比例（以中間值約 '+wan(T)+' 萬計算）</div><div class="pie-wrap"><svg viewBox="0 0 200 200" width="180" height="180" role="img" aria-label="預算比例圓餅圖" shape-rendering="geometricPrecision">'+paths+'<g stroke="#fffdf9" stroke-width="2">'+seps+'</g>'+labels+'</svg><ul class="leg">'+leg+'</ul></div>';
   h+='<div class="sec-t">明細</div><div class="bl">';
   BUD.forEach(function(g){h+='<div class="bcat">'+g.cat+'</div>';
     g.rows.forEach(function(r){var st=r[2]==='est'?'tbd':r[2];h+='<div class="brow"><div class="bn"><div class="bt">'+r[0]+'<span class="st '+st+'">'+r[3]+'</span></div><div class="d">'+r[1]+'</div></div><div class="ba"><div class="tw num">'+(r[5]===r[6]?fmt(r[5]):fmt(r[5])+'–'+fmt(r[6]))+'</div><div class="d num">'+r[4]+'</div></div></div>';});
