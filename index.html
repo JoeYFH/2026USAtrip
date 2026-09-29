@@ -112,7 +112,6 @@ a.card.drive .t{color:var(--brick)}
 .note + .note{margin-top:8px}
 ul.notes{margin:0;padding:12px 16px 12px 34px}
 ul.notes li + li{margin-top:4px}
-ul.notes + .theme{margin-top:20px}
 .note b{color:var(--ink)}
 
 .pager{display:flex;justify-content:space-between;gap:12px;margin-top:32px}
@@ -417,8 +416,8 @@ function card(o,cls){
 function dayHTML(i){
   var d=DAYS[i],h='';
   h+='<div class="dhead"><div><div class="n">DAY '+String(d.n).padStart(2,'0')+'</div><h1>'+d.date+'</h1><div class="w">'+d.w+'</div></div><div class="city"><b class="c-'+WXCITY[d.id]+'">'+d.city+'</b></div></div>';
-  if(d.notes)h+='<div class="sec-t">提醒</div><ul class="note notes">'+d.notes.map(function(n){return '<li>'+n+'</li>';}).join('')+'</ul>';
   h+='<p class="theme'+(d.g?' g':'')+'">'+d.theme+'</p>';
+  if(d.notes)h+='<div class="sec-t">提醒</div><ul class="note notes">'+d.notes.map(function(n){return '<li>'+n+'</li>';}).join('')+'</ul>';
   h+='<div class="sec-t">今天天氣</div>'+wxHTML(d.id);
   h+='<div class="sec-t">今天的交通與住宿</div><div class="info">';
   (d.move||[]).forEach(function(m){var o=Object.assign({k:'交通'},m);h+=card(o,'move');});
