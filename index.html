@@ -85,6 +85,8 @@ p{margin:0}
 .card.move{border-left:3px solid var(--green)}
 .card.sleep{border-left:3px solid var(--brown)}
 .card.sleep.none{border-left-color:var(--line)}
+a.card.drive{display:block;text-decoration:none;border-left:3px solid var(--brick)}
+a.card.drive .t{color:var(--brick)}
 
 .st{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px;white-space:nowrap;vertical-align:2px;margin-left:4px}
 .st.ok{background:var(--green-bg);color:var(--green)}
@@ -275,14 +277,14 @@ var DAYS = [
   move:[{t:'LAX 還車',from:'飯店',to:'LAX 租車中心',d:'還車後搭接駁車到 B 航廈'},{t:'長榮 BR015 商務艙',s:'wait',sl:'Judy 訂',from:'洛杉磯 23:00',to:'台北 12/25 05:40',d:'LAX 國際航廈（B 航廈）→ 桃園第二航廈'}],
   acts:[['12:00','中午','退房','行李可以寄放飯店，白天再玩一下'],['19:00','晚上','機場還車','搭接駁車到 B 航廈',null,'m'],['20:00','晚上','長榮櫃台報到','Tom Bradley 國際航廈','Tom Bradley International Terminal LAX','m'],['23:00','晚上','BR015 起飛','12/25 清晨 5:40 到桃園',null,'m']]}
 ];
+var DRIVE='https://drive.google.com/drive/folders/1yfd0X5hMB1XpWCxIDTtkpaTLv1hptSPw?usp=drive_link';
+function driveHTML(){return '<a class="card drive" href="'+DRIVE+'" target="_blank" rel="noopener"><div class="k">所有預定資料</div><div class="t">預定資料資料夾（Google 雲端）›</div><div class="d">機票、飯店、租車、門票的確認信和收據都放這裡</div></a>';}
 var PREP = [
- ['辦美國 ESTA（3 個人都要，小朋友也要）','出發前至少 3 天辦好；護照要在效期內'],
+ ['美國 ESTA 已確認 ✓','媽媽、姊姊、妹妹都有了；出發前再看一次護照效期','','done'],
+ ['姊姊辦國際駕照','洛杉磯租車要用；帶護照、身分證、台灣駕照、照片到監理站辦，出國時台灣駕照也要帶','姊姊'],
  ['保暖衣物','紐約、華盛頓白天常只有 0–5°C：厚外套、帽子、手套、圍巾；洛杉磯白天約 20°C'],
  ['網路','美國 eSIM 或上網卡，出發前先買好'],
- ['錢','信用卡為主，帶少量美金現金給小費'],
- ['小朋友用品','常用藥、點心、小玩具、平板和耳機（長途飛機和火車）'],
- ['輕便推車','3 歲走不久，紐約和華盛頓走路很多；可折疊的比較方便上下地鐵'],
- ['調時差','紐約比台灣慢 13 小時，洛杉磯慢 16 小時；出發前幾天可以晚一點睡']
+ ['錢','信用卡為主，帶少量美金現金給小費']
 ];
 var TODO = [
  ['長榮國際線機票','去 12/11 BR32、回 12/23 BR015，3 人 TWD 522,081','Judy'],
@@ -375,14 +377,15 @@ function budgetHTML(){
   var lo=0,hi=0,conf=0,groups=[];
   BUD.forEach(function(g){var gl=0,gh=0;g.rows.forEach(function(r){gl+=r[5];gh+=r[6];if(r[2]!=='est'){conf+=r[5];}});lo+=gl;hi+=gh;g.lo=gl;g.hi=gh;});
   var slices=[['國際線機票',522081,'#2a78d6'],['住宿',(BUD[1].lo+BUD[1].hi)/2,'#eb6834'],['美國國內交通',(BUD[0].lo+BUD[0].hi)/2-522081,'#1baf7a'],['餐飲',(BUD[2].lo+BUD[2].hi)/2,'#eda100'],['門票・活動',(BUD[3].lo+BUD[3].hi)/2,'#e87ba4']];
-  var T=slices.reduce(function(a,b){return a+b[1];},0),a=-Math.PI/2,paths='',labels='',leg='';
+  var T=slices.reduce(function(a,b){return a+b[1];},0),a=-Math.PI/2,paths='',seps='',labels='',leg='';
   slices.forEach(function(sl){var da=sl[1]/T*2*Math.PI,b=a+da,x1=100+95*Math.cos(a),y1=100+95*Math.sin(a),x2=100+95*Math.cos(b),y2=100+95*Math.sin(b);
-    paths+='<path d="M100,100 L'+x1.toFixed(1)+','+y1.toFixed(1)+' A95,95 0 '+(da>Math.PI?1:0)+' 1 '+x2.toFixed(1)+','+y2.toFixed(1)+' Z" fill="'+sl[2]+'" stroke="#fffdf9" stroke-width="2"/>';
+    paths+='<path d="M100,100 L'+x1.toFixed(2)+','+y1.toFixed(2)+' A95,95 0 '+(da>Math.PI?1:0)+' 1 '+x2.toFixed(2)+','+y2.toFixed(2)+' Z" fill="'+sl[2]+'"/>';
+    seps+='<line x1="100" y1="100" x2="'+(100+96*Math.cos(a)).toFixed(2)+'" y2="'+(100+96*Math.sin(a)).toFixed(2)+'"/>';
     var pc=(sl[1]/T*100);if(pc>=7){var m=(a+b)/2;labels+='<text x="'+(100+58*Math.cos(m)).toFixed(1)+'" y="'+(100+58*Math.sin(m)).toFixed(1)+'" text-anchor="middle" dominant-baseline="middle" font-size="12" font-weight="700" fill="#fff">'+pc.toFixed(0)+'%</text>';}
     leg+='<li><i style="background:'+sl[2]+'"></i><span>'+sl[0]+'</span><span class="p num">'+pc.toFixed(1)+'%</span><span class="v num">約 '+wan(sl[1])+' 萬</span></li>';a=b;});
   var h='<div class="dhead"><div><div class="n">BUDGET</div><h1>預算</h1><div class="w">3 人・美金以 1 USD ≈ 30.6 TWD 換算</div></div></div>';
   h+='<div class="kpi"><div class="card"><div class="k">總預算</div><div class="big num">約 '+wan(lo)+'–'+wan(hi)+' 萬</div></div><div class="card"><div class="k">已訂＋有報價（金額確定）</div><div class="big num">約 '+wan(conf)+' 萬</div></div><div class="card"><div class="k">估算的部分</div><div class="big num">約 '+wan(lo-conf)+'–'+wan(hi-conf)+' 萬</div></div></div>';
-  h+='<div class="sec-t">比例（以中間值約 '+wan(T)+' 萬計算）</div><div class="pie-wrap"><svg viewBox="0 0 200 200" width="180" height="180" role="img" aria-label="預算比例圓餅圖">'+paths+labels+'</svg><ul class="leg">'+leg+'</ul></div>';
+  h+='<div class="sec-t">比例（以中間值約 '+wan(T)+' 萬計算）</div><div class="pie-wrap"><svg viewBox="0 0 200 200" width="180" height="180" role="img" aria-label="預算比例圓餅圖" shape-rendering="geometricPrecision">'+paths+'<g stroke="#fffdf9" stroke-width="2">'+seps+'</g>'+labels+'</svg><ul class="leg">'+leg+'</ul></div>';
   h+='<div class="sec-t">明細</div><div class="bl">';
   BUD.forEach(function(g){h+='<div class="bcat">'+g.cat+'</div>';
     g.rows.forEach(function(r){var st=r[2]==='est'?'tbd':r[2];h+='<div class="brow"><div class="bn"><div class="bt">'+r[0]+'<span class="st '+st+'">'+r[3]+'</span></div><div class="d">'+r[1]+'</div></div><div class="ba"><div class="tw num">'+(r[5]===r[6]?fmt(r[5]):fmt(r[5])+'–'+fmt(r[6]))+'</div><div class="d num">'+r[4]+'</div></div></div>';});
@@ -429,13 +432,25 @@ function overviewHTML(){
   h+='<div class="sec-t">每一天（點進去看當天完整行程）</div><div class="cl"><span><i style="background:#e4e8ee"></i>紐約</span><span><i style="background:#e2eadc"></i>華盛頓</span><span><i style="background:#f3e3d6"></i>洛杉磯</span></div><ul class="days">';
   DAYS.forEach(function(d){h+='<li><a href="#'+d.id+'" data-day="'+d.day+'" class="r-'+WXCITY[d.id]+(d.g?' g':'')+'"><span class="d num">12/'+d.day+'<small>週'+d.wk+'</small></span><span class="c c-'+WXCITY[d.id]+'">'+d.city+'</span><span class="t">'+d.theme+'</span><span class="wxs num">'+wxShort(d.id)+'</span></a></li>';});
   h+='</ul>';
-  h+='<div class="sec-t">其他</div><div class="info">'+card({k:'出發前',t:'行前準備',d:'ESTA、行李、保暖衣物、兒童座椅'},'sleep')+card({k:'還沒完成',t:'待確認事項',d:'機票、飯店、租車、訂位'},'move')+'</div>';
+  h+='<div class="sec-t">其他</div><div class="info">'+card({k:'出發前',t:'行前準備',d:'ESTA、國際駕照、保暖衣物'},'sleep')+card({k:'還沒完成',t:'待確認事項',d:'機票、飯店、租車、訂位'},'move')+'</div><div style="margin-top:12px">'+driveHTML()+'</div>';
   return h.replace('行前準備</div>','<a href="#prep" style="text-decoration:none">行前準備 ›</a></div>').replace('待確認事項</div>','<a href="#todo" style="text-decoration:none">待確認事項 ›</a></div>');
 }
 function listHTML(title,sub,items,todo){
   var h='<div class="dhead"><div><div class="n">'+(todo?'TO CONFIRM':'BEFORE WE GO')+'</div><h1>'+title+'</h1><div class="w">'+sub+'</div></div></div><ul class="list">';
   items.forEach(function(it){h+='<li class="'+(it[3]||'')+'"><span class="mk"></span><div>'+(it[2]?'<div class="who">負責：'+it[2]+'</div>':'')+'<div class="t">'+it[0]+'</div><div class="s">'+it[1]+'</div></div></li>';});
   return h+'</ul>';
+}
+var PEOPLE=['Judy','Joe','Miffy'];
+function todoHTML(){
+  var h=listHTML('待確認事項','還沒訂、還沒確定的事，照負責的人分',[],1).replace('<ul class="list"></ul>','')+'<div style="margin-bottom:4px">'+driveHTML()+'</div>';
+  function items(a){return a.map(function(it){return [it[0],it[1],'',it[3]];});}
+  function sec(t,a,empty){h+='<div class="sec-t">'+t+(a.length?'（'+a.length+'）':'')+'</div>';h+=a.length?listHTML('','',items(a)).replace(/^[\s\S]*?<ul class="list">/,'<ul class="list">'):'<p class="note">'+empty+'</p>';}
+  var open=TODO.filter(function(it){return it[3]!=='done';});
+  PEOPLE.forEach(function(p){sec(p,open.filter(function(it){return it[2]===p;}),'目前沒有待辦事項');});
+  var rest=open.filter(function(it){return PEOPLE.indexOf(it[2])<0;});
+  if(rest.length)sec('還沒分配',rest);
+  sec('已完成',TODO.filter(function(it){return it[3]==='done';}),'');
+  return h;
 }
 
 document.getElementById('strip').innerHTML=stripHTML();
@@ -448,7 +463,7 @@ function render(keep){
   if(idx>=0)html=dayHTML(idx);
   else if(h==='prep')html=listHTML('行前準備','出發前一起檢查',PREP);
   else if(h==='budget')html=budgetHTML();
-  else if(h==='todo')html=listHTML('待確認事項','還沒訂、還沒確定的事',TODO,1);
+  else if(h==='todo')html=todoHTML();
   else{h='overview';html=overviewHTML();}
   main.innerHTML='<section class="page">'+html+'</section>';
   document.querySelectorAll('[data-p]').forEach(function(a){if(a.dataset.p===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
