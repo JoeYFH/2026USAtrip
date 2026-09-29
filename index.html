@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Family Trip 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+/* Layout: one page per day — a date strip (bottom on phones, top on desktop) switches days;
+   each day holds everything for that day: where we sleep, how we move, what we do, notes.
+   Warm paper palette, quiet hairlines, Chinese-first type at a calm size. */
+:root{
+  color-scheme: light;
+  --paper:#f7f4ef; --panel:#fffdf9; --beige:#efe8dd;
+  --ink:#27231f; --ink-2:#534c45; --ink-3:#7f776d; --line:#e0d8cc;
+  --green:#4f6444; --green-bg:#e7ece0;
+  --brick:#9a3f2e; --brick-bg:#f5e4dd;
+  --brown:#7a5f45;
+  --f-head:"Noto Serif TC","Songti TC",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --r:8px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:calc(78px + env(safe-area-inset-bottom,0px))}
+@media (min-width:821px){body{padding-bottom:0}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+a{color:inherit}
+h1,h2,h3{font-family:var(--f-head);font-weight:700;margin:0;text-wrap:balance;line-height:1.35}
+p{margin:0}
+:focus-visible{outline:2px solid var(--brick);outline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding-inline:clamp(16px,4vw,32px)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- Header ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--paper);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
+.brand{font-family:var(--f-head);font-size:18px;font-weight:700;text-decoration:none;white-space:nowrap}
+.brand small{font-family:var(--f-body);font-weight:400;font-size:13px;color:var(--ink-3);margin-left:8px}
+.jump{display:flex;gap:6px}
+.jump a{font-size:14px;text-decoration:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--ink-2);background:var(--panel);white-space:nowrap}
+.jump a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ---------- Day strip ---------- */
+.strip{display:flex;gap:6px;overflow-x:auto;padding:8px clamp(16px,4vw,32px) 10px;scrollbar-width:none;max-width:860px;margin:0 auto}
+.strip::-webkit-scrollbar{display:none}
+.strip a{flex:0 0 auto;min-width:56px;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:var(--r);text-decoration:none;background:var(--panel);font-size:12px;color:var(--ink-3);line-height:1.25;padding:4px 8px}
+.strip a b{font-size:17px;color:var(--ink);font-weight:700}
+.strip a .c{font-size:11px}
+.strip a.g{border-color:var(--brick)} .strip a.g b{color:var(--brick)}
+.strip a.today{box-shadow:inset 0 -3px 0 var(--green)}
+.strip a[aria-current="page"]{background:var(--ink);border-color:var(--ink);color:#d9d1c5}
+.strip a[aria-current="page"] b{color:var(--paper)}
+.strip .sep{flex:0 0 1px;background:var(--line);margin:6px 2px}
+@media (max-width:820px){
+  .strip{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--panel);border-top:1px solid var(--line);padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 10px rgba(39,35,31,.06);max-width:none}
+  .jump{display:none}
+}
+
+/* ---------- Page ---------- */
+.page{padding-block:24px 56px;animation:in .3s ease-out}
+@keyframes in{from{opacity:.001;transform:translateY(6px)}to{opacity:1;transform:none}}
+.dhead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 16px;align-items:end;padding-bottom:16px;border-bottom:1px solid var(--ink);margin-bottom:20px}
+.dhead .n{font-size:13px;font-weight:700;color:var(--brown);letter-spacing:.12em}
+.dhead h1{font-size:clamp(26px,4.5vw,32px);margin-top:2px}
+.dhead .w{font-size:15px;color:var(--ink-2);margin-top:2px}
+.dhead .city{font-family:var(--f-head);font-size:15px;color:var(--ink-2);text-align:right;white-space:nowrap}
+.dhead .city b{display:block;font-size:22px;color:var(--ink)}
+.theme{font-size:18px;font-weight:700;margin-bottom:18px}
+.theme.g{color:var(--brick)}
+
+.sec-t{font-size:13px;font-weight:700;color:var(--ink-3);letter-spacing:.1em;margin:24px 0 10px;display:flex;align-items:center;gap:8px}
+.sec-t::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:620px){.info{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+.card .k{font-size:13px;color:var(--ink-3);font-weight:500}
+.card .t{font-size:17px;font-weight:700;margin-top:2px}
+.card .d{font-size:15px;color:var(--ink-2);margin-top:4px}
+.card .row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:6px}
+.card .big{font-size:18px;font-weight:700}
+.card .arrow{color:var(--ink-3)}
+.card.move{border-left:3px solid var(--green)}
+.card.sleep{border-left:3px solid var(--brown)}
+.card.sleep.none{border-left-color:var(--line)}
+
+.st{display:inline-block;font-size:12px;font-weight:700;padding:1px 8px;border-radius:999px;white-space:nowrap;vertical-align:2px;margin-left:4px}
+.st.ok{background:var(--green-bg);color:var(--green)}
+.st.wait{background:var(--brick-bg);color:var(--brick)}
+.st.tbd{background:var(--beige);color:var(--ink-2)}
+
+.tl{list-style:none;margin:0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:76px;top:8px;bottom:8px;width:1px;background:var(--line)}
+.tl li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:24px;padding-block:10px;position:relative}
+.tl li::before{content:"";position:absolute;left:72px;top:19px;width:9px;height:9px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink-3)}
+.tl li.m::before{background:var(--green);border-color:var(--green)}
+.tl li.g::before{background:var(--brick);border-color:var(--brick)}
+.tl .tm{font-size:16px;font-weight:700;text-align:right;line-height:1.4}
+.tl .tm small{display:block;font-size:12px;font-weight:400;color:var(--ink-3)}
+.tl .wh{font-size:16px;font-weight:700}
+.tl .ds{font-size:15px;color:var(--ink-2)}
+.maps{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;font-weight:500;color:var(--green);text-decoration:none;border:1px solid color-mix(in srgb,var(--green) 45%,transparent);border-radius:999px;padding:4px 12px;min-height:34px}
+.maps:hover{background:var(--green);color:#fff}
+
+.note{background:var(--beige);border-radius:var(--r);padding:12px 16px;font-size:15px;color:var(--ink-2)}
+.note + .note{margin-top:8px}
+.note b{color:var(--ink)}
+
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:32px}
+.pager a{flex:1;text-decoration:none;border:1px solid var(--line);border-radius:var(--r);padding:12px 16px;background:var(--panel);min-height:52px}
+.pager a small{display:block;font-size:12px;color:var(--ink-3)}
+.pager a b{font-size:15px}
+.pager a.nx{text-align:right}
+.pager a:hover{border-color:var(--ink)}
+
+/* ---------- Overview ---------- */
+.hero{margin-bottom:8px;padding-block:8px 4px}
+.hero .eb{font-size:13px;color:var(--brown);letter-spacing:.14em}
+.hero h1{font-size:clamp(36px,7vw,52px);margin:4px 0 8px}
+.hero .dt{font-size:18px;font-weight:700}
+.hero .sb{color:var(--ink-2)}
+.hero .cd{margin-top:12px}
+.hero .cd b{font-size:26px;color:var(--brick);margin-inline:4px}
+.cover{aspect-ratio:4/3;border-radius:var(--r);background:#aea79d;position:relative;overflow:hidden;max-width:100%}
+.cover .sun{position:absolute;width:32%;aspect-ratio:1;border-radius:50%;background:rgba(247,244,239,.6);left:16%;top:18%}
+.cover .hill{position:absolute;left:-10%;right:-10%;bottom:-12%;height:44%;background:rgba(79,100,68,.4);border-radius:50% 50% 0 0}
+.cover .vt{position:absolute;right:16px;top:16px;writing-mode:vertical-rl;color:#fff;font-family:var(--f-head);letter-spacing:.3em}
+@media (max-width:720px){.hero{grid-template-columns:1fr}.cover{order:-1;aspect-ratio:16/8}}
+.days{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.days a{display:grid;grid-template-columns:88px 100px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line);text-decoration:none}
+.days a:hover{background:var(--panel)}
+.days .d{font-weight:700;white-space:nowrap} .days .d small{font-weight:400;color:var(--ink-3);margin-left:4px}
+.days .c{font-size:14px;color:var(--brown)}
+.days .t{font-size:15px}
+.days .go{color:var(--ink-3)}
+.days a.g .t{color:var(--brick);font-weight:700}
+.days a.today{background:var(--green-bg)}
+.days a{border-left:4px solid transparent}
+.days a.r-ny{border-left-color:#c5cdd8}.days a.r-dc{border-left-color:#b7c6ab}.days a.r-la{border-left-color:#dfc3ab}.days a.g{border-left-color:var(--brick)}
+@media (max-width:560px){.days a{grid-template-columns:86px minmax(0,1fr) auto;row-gap:0}.days .c{grid-column:2;grid-row:2;font-size:13px}.days .t{grid-column:2;grid-row:1}.days .wxs{grid-row:1/3;grid-column:3}.days .d{grid-row:1/3}}
+
+/* ---------- Checklists ---------- */
+.list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.list li{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px}
+.list .mk{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--ink-3);margin-top:3px}
+.list li.done .mk{background:var(--green);border-color:var(--green)}
+.list .t{font-weight:700}
+.list .s{font-size:15px;color:var(--ink-2)}
+.list .who{font-size:13px;color:var(--brown);font-weight:700}
+footer{text-align:center;color:var(--ink-3);font-size:13px;padding-block:8px 32px}
+.wx{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 18px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 18px;margin-bottom:6px}
+.wx .temp{font-size:26px;font-weight:700;line-height:1.1;white-space:nowrap}
+.wx .temp small{font-size:15px;font-weight:500;color:var(--ink-3);margin-left:4px}
+.wx .desc{font-size:16px;font-weight:700}
+.wx .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.wx .tg{font-size:13px;padding:1px 10px;border-radius:999px;background:var(--beige);color:var(--ink-2)}
+.wx .tg.rain{background:#e3e8ee;color:#3f5570}
+.wx .tg.snow{background:#eef0f4;color:#4a4f6a;border:1px solid #c9ceda}
+.wx .src{grid-column:1/-1;font-size:12px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:6px;margin-top:4px}
+.wx.fc{border-left:3px solid #6b7f95}
+.days .wxs{font-size:13px;color:var(--ink-3);white-space:nowrap}
+.strip a.c-ny{background:#e4e8ee;border-color:#c5cdd8}
+.strip a.c-dc{background:#e2eadc;border-color:#b7c6ab}
+.strip a.c-la{background:#f3e3d6;border-color:#dfc3ab}
+.strip a.c-ny.g,.strip a.c-dc.g{background:var(--brick-bg);border-color:var(--brick)}
+.strip a[aria-current="page"]{background:var(--ink)!important;border-color:var(--ink)!important}
+.cl{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--ink-2);margin:4px 0 14px}
+.cl span{display:inline-flex;align-items:center;gap:6px}
+.cl i{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid var(--line)}
+.dhead .city b.c-ny,.days .c.c-ny{color:#48607d}
+.dhead .city b.c-dc,.days .c.c-dc{color:#4f6444}
+.dhead .city b.c-la,.days .c.c-la{color:#a2573a}
+.strip a.g,.strip a.c-dc.g{background:#e2eadc;border-color:#b7c6ab}
+.strip a.g b{color:var(--ink)}
+.theme.g{color:var(--ink)}
+.days a.g .t{color:var(--ink);font-weight:400}
+.days a.g{border-left-color:#b7c6ab}
+.tl li.g::before{background:var(--paper);border-color:var(--ink-3)}
+.pie-wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.pie-wrap svg{flex:0 0 auto;max-width:100%}
+.leg{list-style:none;margin:0;padding:0;display:grid;gap:6px;flex:1;min-width:220px}
+.leg li{display:grid;grid-template-columns:14px minmax(0,1fr) auto auto;gap:10px;align-items:center;font-size:15px}
+.leg i{width:12px;height:12px;border-radius:3px}
+.leg .p{font-weight:700;text-align:right}
+.leg .v{color:var(--ink-3);text-align:right;white-space:nowrap;font-size:14px}
+.btbl{width:100%;border-collapse:collapse;font-size:15px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.btbl th,.btbl td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.btbl .r{text-align:right;white-space:nowrap}
+.btbl tr.cat td{background:var(--beige);font-weight:700;font-size:14px;color:var(--ink-2)}
+.btbl tr.sub td{font-weight:700;border-bottom:2px solid var(--line)}
+.btbl tr.tot td{font-weight:700;font-size:17px;background:var(--panel);border-top:2px solid var(--ink)}
+.btbl .d{font-size:13px;color:var(--ink-3)}
+.tblwrap{overflow-x:auto}
+.kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.kpi .card .big{font-size:22px}
+@media (max-width:620px){.kpi{grid-template-columns:1fr}}
+.bl{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.bcat{background:var(--beige);font-weight:700;font-size:14px;color:var(--ink-2);padding:8px 14px}
+.brow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.brow .bt{font-weight:700}
+.brow .d{font-size:13px;color:var(--ink-3)}
+.brow .ba{text-align:right;white-space:nowrap}
+.brow .tw{font-weight:700}
+.brow.sub{font-weight:700;background:#faf7f2}
+.brow.tot{font-size:17px;font-weight:700;border-top:2px solid var(--ink);border-bottom:none}
+.wxl{display:flex;align-items:center;gap:10px}
+.wxi{flex:0 0 auto}
+.wxi-sun{color:#b98a2f}.wxi-part{color:#8a7a5a}.wxi-cloud{color:#7f776d}.wxi-rain{color:#4f6b8a}.wxi-snow{color:#5d7894}
+.days .wxs{display:inline-flex;align-items:center;gap:4px}
+@media (max-width:560px){.wx{grid-template-columns:1fr}.wx .src{grid-column:1}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#overview">家族旅行<small>2026 · 12/11–12/23</small></a>
+    <nav class="jump" aria-label="其他頁"><a href="#overview" data-p="overview">總覽</a><a href="#prep" data-p="prep">行前準備</a><a href="#todo" data-p="todo">待確認事項</a><a href="#budget" data-p="budget">預算</a></nav>
+  </div>
+  <nav class="strip" id="strip" aria-label="選擇日期"></nav>
+</header>
+
+<main class="wrap" id="main"></main>
+<footer>家族旅行 · 2026 年 12 月</footer>
+
+<script>
+var M = function(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);};
+var STAY = {
+  ny:{k:'今晚住',t:'Courtyard 萬怡酒店（長島市）',s:'ok',sl:'已訂',d:'29-15 Queens Plaza North, Long Island City, NY 11101・家庭房・確認碼 6V8PTGB71L',m:'29-15 Queens Plaza North Long Island City NY 11101'},
+  dc:{k:'今晚住',t:'SpringHill Suites 森特維爾',s:'ok',sl:'已訂',d:'5920 Trinity Parkway, Centreville, VA 20120・有停車場・媽媽、Judy 和小朋友住（Joe 住自己家）',m:'5920 Trinity Parkway Centreville VA 20120'},
+  la:{k:'今晚住',t:'洛杉磯飯店',s:'wait',sl:'Judy 訂',d:'同等級家庭房，訂好後更新'},
+  plane:{k:'今晚',t:'在飛機上',d:'長榮 BR015，12/25 清晨到桃園',none:1}
+};
+var DAYS = [
+ {id:'d11',n:1,date:'12 月 11 日',w:'星期五',wk:'五',day:11,city:'台北 → 紐約',cc:'出發',theme:'從台北飛紐約',stay:'ny',
+  move:[{t:'長榮 BR32 商務艙',s:'wait',sl:'Judy 訂',from:'台北 19:20',to:'紐約 21:05',d:'桃園第二航廈 → JFK 第一航廈，飛約 14 小時 45 分'}],
+  acts:[['16:20','下午','到桃園機場第二航廈報到','長榮航空櫃台',null,'m'],['19:20','晚上','BR32 起飛','',null,'m'],['21:05','紐約時間','抵達 JFK，叫車到飯店','入境、領行李，車程約 30–40 分鐘，約 11 點入住','JFK Airport Terminal 1','m']],
+  notes:['Joe 會在紐約跟大家會合。','同一天出發、同一天到：往東飛會「賺回」時差。','到紐約是晚上，飛機上不要睡太多（尤其後半段），到飯店再好好睡，比較好調時差。小朋友想睡就讓他睡。']},
+ {id:'d12',n:2,date:'12 月 12 日',w:'星期六',wk:'六',day:12,city:'紐約',cc:'紐約',theme:'中央公園，慢慢調時差',stay:'ny',
+  acts:[['10:00','上午','中央公園散步','推嬰兒車慢慢逛，累了隨時回飯店','Central Park New York'],['下午','','回飯店休息','第一天時差最明顯，行程排輕鬆']],
+  notes:['飯店走路就到 Queens Plaza 地鐵站，到曼哈頓約 10 分鐘。']},
+ {id:'d13',n:3,date:'12 月 13 日',w:'星期日',wk:'日',day:13,city:'紐約',cc:'紐約',theme:'免費渡輪看自由女神、華爾街、布魯克林',stay:'ny',
+  acts:[['09:30','上午','搭史泰登島渡輪看自由女神','免費、不用買票，從 Whitehall 碼頭上船，單程約 25 分鐘，船會經過自由女神。到對岸下船後，再排隊搭下一班回來，來回約 1.5–2 小時','Whitehall Terminal Staten Island Ferry'],['12:00','中午','華爾街','銅牛、紐約證券交易所，從碼頭走路約 10 分鐘','Charging Bull Wall Street'],['14:30','下午','布魯克林 DUMBO','看布魯克林大橋和曼哈頓風景','DUMBO Brooklyn']],
+  notes:['坐右邊（右舷）去程比較看得到自由女神。','碼頭和船上風很大，帶帽子和手套。']},
+ {id:'d14',n:4,date:'12 月 14 日',w:'星期一',wk:'一',day:14,city:'紐約',cc:'紐約',theme:'松果、高架公園、Little Island',stay:'ny',
+  acts:[['10:00','上午','松果 Vessel（Hudson Yards）','下面看免費，上去要買票','Vessel Hudson Yards'],['中午','','沿高架公園 High Line 往南走','舊鐵道改成的步道公園','High Line New York'],['14:00','下午','Little Island 河上小公園','High Line 南端下來，再走約 5 分鐘','Little Island New York']]},
+ {id:'d15',n:5,date:'12 月 15 日',w:'星期二',wk:'二',day:15,city:'紐約',cc:'紐約',theme:'洛克斐勒聖誕樹之夜',stay:'ny',
+  acts:[['白天','','自由活動、第五大道聖誕櫥窗','可以看 Radio City 聖誕秀，或逛 Bryant Park 聖誕市集','Bryant Park Winter Village'],['17:30','傍晚','洛克斐勒中心聖誕樹','傍晚點燈最漂亮','Rockefeller Center Christmas Tree'],['19:00','晚上','家庭晚餐 · 洛克斐勒中心旁','餐廳待訂位']],
+  notes:['<b>今晚先整理行李</b>，明天要退房搭火車。']},
+ {id:'d16',n:6,date:'12 月 16 日',w:'星期三',wk:'三',day:16,city:'紐約 → 華盛頓',cc:'移動',theme:'搭 Acela 火車到華盛頓',stay:'dc',
+  move:[{t:'Amtrak Acela 2165 商務艙',s:'ok',sl:'已訂',from:'紐約 15:16',to:'華盛頓 約 18:00',d:'Penn Station（Moynihan 大廳）→ Union Station・9 號車廂 7A、7B、8A、8B'},{t:'到站後前往飯店',s:'tbd',sl:'待確認',from:'Union Station',to:'Centreville',d:'請朋友來接，或叫車（約 40–60 分鐘）'}],
+  acts:[['11:00','上午','飯店退房','行李可以先寄放飯店，附近走走'],['13:45','下午','回飯店拿行李','行李多建議叫車到車站，約 20–30 分鐘；或搭地鐵 E 線到 34 街'],['14:45','下午','到紐約 Penn Station（Moynihan 大廳）','提早到，找出發月台、上車','Moynihan Train Hall','m'],['15:16','下午','Acela 火車出發','約 3 小時',null,'m'],['18:00','傍晚','到 Union Station，前往飯店','朋友接或叫車，入住 SpringHill Suites',null,'m']],
+  notes:['Joe 跟大家一起從紐約搭火車過來，到 DC 後 Joe 回自己家住。','9 號車廂是「安靜車廂」，車上要小聲說話。','大人要帶護照上車。']},
+ {id:'d17',n:7,date:'12 月 17 日',w:'星期四',wk:'四',day:17,city:'華盛頓',cc:'典禮',g:1,theme:'畢業典禮・George Mason University',stay:'dc',
+  move:[{t:'到學校',s:'tbd',sl:'待確認',from:'飯店',to:'喬治梅森大學',d:'朋友接送或叫車，約 20–25 分鐘'}],
+  acts:[['待公告','','提早 1.5 小時到學校','拍照、找座位','George Mason University Fairfax VA','g'],['待公告','','畢業典禮','時間、確切場地待學校公告',null,'g'],['晚上','','家庭慶祝晚餐','餐廳待定']],
+  notes:['穿暖一點，帶相機和花束。','幫小朋友準備點心和小玩具，典禮時間可能比較長。']},
+ {id:'d18',n:8,date:'12 月 18 日',w:'星期五',wk:'五',day:18,city:'華盛頓',cc:'華盛頓',theme:'華盛頓一日遊',stay:'dc',
+  move:[{t:'進 DC 市區',from:'飯店',to:'國家廣場',d:'叫車或朋友接送，約 40–60 分鐘'}],
+  acts:[['10:00','上午','國家廣場','國會大廈、華盛頓紀念碑，旁邊有很多免費博物館','National Mall Washington DC'],['14:00','下午','美國植物園聖誕展','免費、室內，有小火車','United States Botanic Garden'],['晚上','','國家聖誕樹','白宮南邊，免費','National Christmas Tree Ellipse']],
+  notes:['<b>今晚整理行李</b>，明天中午的飛機。']},
+ {id:'d19',n:9,date:'12 月 19 日',w:'星期六',wk:'六',day:19,city:'華盛頓 → 洛杉磯',cc:'移動',theme:'飛到洛杉磯',stay:'la',
+  move:[{t:'United UA1689 經濟艙',s:'tbd',sl:'待訂',from:'華盛頓 12:40',to:'洛杉磯 15:34',d:'杜勒斯機場 IAD → 洛杉磯 LAX，飛約 6 小時'},{t:'LAX 取租車',s:'wait',sl:'Judy 訂',from:'LAX',to:'飯店',d:'中型休旅車（RAV4 等級），含全險'}],
+  acts:[['10:30','上午','退房，前往 IAD 機場','叫車或朋友接送，約 15 分鐘','Washington Dulles International Airport','m'],['12:40','中午','UA1689 起飛','',null,'m'],['15:34','洛杉磯時間','抵達 LAX','領行李後搭接駁車到租車中心',null,'m'],['17:00','傍晚','取車，開到飯店','裝好兒童安全座椅再出發',null,'m']],
+  notes:['洛杉磯比東岸晚 3 小時。']},
+ {id:'d20',n:10,date:'12 月 20 日',w:'星期日',wk:'日',day:20,city:'洛杉磯',cc:'LA',theme:'洛杉磯（行程待安排）',stay:'la',
+  acts:[['全天','','行程待安排','']]},
+ {id:'d21',n:11,date:'12 月 21 日',w:'星期一',wk:'一',day:21,city:'洛杉磯',cc:'LA',theme:'洛杉磯（行程待安排）',stay:'la',
+  acts:[['全天','','行程待安排','']]},
+ {id:'d22',n:12,date:'12 月 22 日',w:'星期二',wk:'二',day:22,city:'洛杉磯',cc:'LA',theme:'洛杉磯（行程待安排）',stay:'la',
+  acts:[['全天','','行程待安排','']],
+  notes:['<b>今晚整理行李</b>，明天晚上回台北。']},
+ {id:'d23',n:13,date:'12 月 23 日',w:'星期三',wk:'三',day:23,city:'洛杉磯 → 台北',cc:'回家',theme:'回家',stay:'plane',
+  move:[{t:'LAX 還車',from:'飯店',to:'LAX 租車中心',d:'還車後搭接駁車到 B 航廈'},{t:'長榮 BR015 商務艙',s:'wait',sl:'Judy 訂',from:'洛杉磯 23:00',to:'台北 12/25 05:40',d:'LAX 國際航廈（B 航廈）→ 桃園第二航廈'}],
+  acts:[['12:00','中午','退房','行李可以寄放飯店，白天再玩一下'],['19:00','晚上','機場還車','搭接駁車到 B 航廈',null,'m'],['20:00','晚上','長榮櫃台報到','Tom Bradley 國際航廈','Tom Bradley International Terminal LAX','m'],['23:00','晚上','BR015 起飛','12/25 清晨 5:40 到桃園',null,'m']]}
+];
+var PREP = [
+ ['辦美國 ESTA（3 個人都要，小朋友也要）','出發前至少 3 天辦好；護照要在效期內'],
+ ['保暖衣物','紐約、華盛頓白天常只有 0–5°C：厚外套、帽子、手套、圍巾；洛杉磯白天約 20°C'],
+ ['網路','美國 eSIM 或上網卡，出發前先買好'],
+ ['錢','信用卡為主，帶少量美金現金給小費'],
+ ['小朋友用品','常用藥、點心、小玩具、平板和耳機（長途飛機和火車）'],
+ ['輕便推車','3 歲走不久，紐約和華盛頓走路很多；可折疊的比較方便上下地鐵'],
+ ['調時差','紐約比台灣慢 13 小時，洛杉磯慢 16 小時；出發前幾天可以晚一點睡']
+];
+var TODO = [
+ ['長榮國際線機票','去 12/11 BR32、回 12/23 BR015，3 人 TWD 522,081','Judy'],
+ ['United UA1689 機票','12/19 華盛頓 → 洛杉磯，3 人 TWD 72,897','Joe'],
+ ['洛杉磯飯店','12/19–12/23，4 晚','Judy'],
+ ['洛杉磯租車','RAV4 等級含全險；還車時間改成晚上 7 點','Judy'],
+ ['租車加租兒童安全座椅','LA 租車時一起加租，取車時確認裝好','Judy'],
+ ['畢業典禮時間、場地','等學校公告','Joe'],
+ ['12/15 洛克斐勒晚餐訂位','看得到溜冰場的餐廳，12 月很搶手','Joe'],
+ ['Radio City 聖誕秀票','要提早買',''],
+ ['DC 交通：請朋友接送或叫車','12/16 Union Station → 飯店、12/17 到學校、12/19 到機場；帶小朋友叫車要注意兒童座椅','Joe'],
+ ['Acela 換到一般車廂（可選）','現在是安靜車廂，Amtrak App 可免費換','Joe'],
+ ['寄信請紐約飯店準備兒童用品','墊腳凳、兒童盥洗用品、餐廳兒童餐椅（嬰兒床已經訂了）','Joe'],
+ ['紐約飯店已訂 ✓','長島市 Courtyard，12/8 傍晚前可免費取消','','done'],
+ ['華盛頓飯店已訂 ✓','SpringHill Suites 森特維爾','','done'],
+ ['Acela 火車已訂 ✓','12/16 15:16，4 位','','done']
+];
+
+var CLIM={
+ tpe:{hi:21,lo:16,rain:40,snow:0,desc:'涼爽，偶有小雨',city:'台北'},
+ ny:{hi:6,lo:-1,rain:35,snow:15,desc:'很冷，可能下雨或下雪',city:'紐約'},
+ dc:{hi:9,lo:-1,rain:30,snow:10,desc:'冷，偶有雨，少數日子下雪',city:'華盛頓'},
+ la:{hi:20,lo:9,rain:15,snow:0,desc:'白天溫暖、早晚涼',city:'洛杉磯'}
+};
+var WXCITY={d11:'ny',d12:'ny',d13:'ny',d14:'ny',d15:'ny',d16:'dc',d17:'dc',d18:'dc',d19:'la',d20:'la',d21:'la',d22:'la',d23:'la'};
+var WX={};
+
+var WXI={
+ sun:'<circle cx="24" cy="24" r="8"/><path d="M24 6v5M24 37v5M6 24h5M37 24h5M11.3 11.3l3.5 3.5M33.2 33.2l3.5 3.5M11.3 36.7l3.5-3.5M33.2 14.8l3.5-3.5"/>',
+ cloud:'<path d="M15 34h19a7 7 0 0 0 0-14 10 10 0 0 0-19-1 7.5 7.5 0 0 0 0 15z"/>',
+ part:'<path d="M17 14a7 7 0 0 1 12.5 3"/><path d="M17 6v3M8.5 9.5l2 2M5 18h3"/><path d="M16 38h18a6.5 6.5 0 0 0 0-13 9 9 0 0 0-17-1 7 7 0 0 0-1 14z"/>',
+ rain:'<path d="M15 28h19a7 7 0 0 0 0-14 10 10 0 0 0-19-1 7.5 7.5 0 0 0 0 15z"/><path d="M17 33l-2 5M25 33l-2 5M33 33l-2 5"/>',
+ snow:'<path d="M15 26h19a7 7 0 0 0 0-14 10 10 0 0 0-19-1 7.5 7.5 0 0 0 0 15z"/><path d="M17 32v6M14.5 35h5M25 34v6M22.5 37h5M33 32v6M30.5 35h5"/>'
+};
+function wxKind(w){if(w.snow>=30)return 'snow';if(w.rain>=50)return 'rain';if(w.snow>0)return 'snow';if(w.rain>=30)return 'part';if(w.rain>=20)return 'cloud';return 'sun';}
+function wxIcon(w,sz){var k=wxKind(w);return '<svg class="wxi wxi-'+k+'" viewBox="0 0 48 48" width="'+sz+'" height="'+sz+'" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+WXI[k]+'</svg>';}
+
+/* Live forecast straight from Open-Meteo (works when hosted outside claude.ai, e.g. GitHub Pages).
+   Inside claude.ai the request is blocked, so the db (updated daily by a scheduled task) is used instead. */
+var LOC={ny:{lat:40.75,lon:-73.94,tz:'America/New_York',city:'紐約'},dc:{lat:38.84,lon:-77.43,tz:'America/New_York',city:'華盛頓'},la:{lat:33.94,lon:-118.40,tz:'America/Los_Angeles',city:'洛杉磯'}};
+var LIVE={};
+function wxDesc(w){if(w.snow>=30)return '可能下雪，注意保暖';if(w.rain>=60)return '很可能下雨，記得帶傘';if(w.rain>=30)return '可能有雨';if(w.lo<=2)return '晴朗但很冷';if(w.hi>=18)return '晴朗溫暖';return '晴時多雲';}
+async function loadLive(){
+  var now=new Date(),stamp=(now.getMonth()+1)+'/'+now.getDate()+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0'),got={};
+  await Promise.all(Object.keys(LOC).map(async function(k){
+    var L=LOC[k];
+    var url='https://api.open-meteo.com/v1/forecast?latitude='+L.lat+'&longitude='+L.lon+'&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,snowfall_sum&timezone='+encodeURIComponent(L.tz)+'&forecast_days=16';
+    try{
+      var r=await fetch(url); if(!r.ok)return; var j=await r.json(), d=j.daily; if(!d||!d.time)return;
+      d.time.forEach(function(t,i){
+        var m=/^2026-12-(\d\d)$/.exec(t); if(!m)return; var id='d'+(+m[1]); if(WXCITY[id]!==k)return;
+        if(d.temperature_2m_max[i]==null)return;
+        var w={hi:Math.round(d.temperature_2m_max[i]),lo:Math.round(d.temperature_2m_min[i]),rain:Math.round(d.precipitation_probability_max[i]||0)};
+        w.snow=(d.snowfall_sum[i]||0)>0?w.rain:0; w.desc=wxDesc(w); w.city=L.city; w.updated=stamp; got[id]=w;
+      });
+    }catch(e){}
+  }));
+  if(Object.keys(got).length){LIVE=got;var y=window.scrollY;render(true);window.scrollTo(0,y);}
+}
+function wxFor(id){return LIVE[id]||WX[id]||null;}
+function wxHTML(id){
+  var f=wxFor(id), c=CLIM[WXCITY[id]], w=f||c, fc=!!f;
+  var tags='';
+  tags+='<span class="tg rain">降雨機率 '+w.rain+'%</span>';
+  if(w.snow>0) tags+='<span class="tg snow">'+(fc?'下雪機率 '+w.snow+'%':'可能下雪')+'</span>'; else tags+='<span class="tg">不會下雪</span>';
+  var src=fc?('實際天氣預報・'+(w.city||c.city)+'・更新於 '+(w.updated||'')):'往年 12 月平均（'+c.city+'）・出發前約兩週會自動換成實際預報';
+  return '<div class="wx'+(fc?' fc':'')+'"><div class="wxl">'+wxIcon(w,44)+'<div class="temp num">'+w.lo+'° – '+w.hi+'°<small>C</small></div></div><div><div class="desc">'+w.desc+'</div><div class="tags">'+tags+'</div></div><div class="src">'+src+'</div></div>';
+}
+function wxShort(id){var f=wxFor(id),c=CLIM[WXCITY[id]],w=f||c;return wxIcon(w,20)+' '+w.lo+'–'+w.hi+'°';}
+
+var BUD=[
+ {cat:'交通',rows:[
+  ['國際線','長榮商務艙來回（12/11 BR32、12/23 BR015）','wait','Judy 訂','TWD 522,081',522081,522081],
+  ['國內線','United UA1689 12/19 IAD → LAX 經濟艙','tbd','待訂','TWD 72,897',72897,72897],
+  ['火車','Acela 2165 12/16 紐約 → DC 商務艙（4 位）','ok','已訂','US$248.50',7604,7604],
+  ['LA 租車','RAV4 12/19–12/23，含全險、過路費（報價）','wait','Judy 訂','US$716.91',21937,21937],
+  ['LA 油錢、停車、兒童座椅','油錢、飯店停車 4 晚、加租兒童座椅','est','估算','US$220–340',6732,10404],
+  ['紐約市區交通','JFK 到飯店、地鐵、叫車','est','估算','US$200–400',6120,12240]]},
+ {cat:'住宿',rows:[
+  ['紐約 5 晚','長島市 Courtyard 家庭房','ok','已訂','US$3,669.03',112272,112272],
+  ['華盛頓 3 晚','SpringHill Suites 森特維爾','ok','已訂','US$652.05',19953,19953],
+  ['洛杉磯 4 晚','同等級家庭房（Judy 訂）','est','估算','US$1,100–1,700',33660,52020]]},
+ {cat:'餐飲',rows:[['餐費 12 天','3 人一天約 US$150–250','est','估算','US$1,800–3,000',55080,91800]]},
+ {cat:'門票・活動',rows:[['門票和活動','Radio City 聖誕秀等（自由女神渡輪免費；洛杉磯行程待定）','est','估算','US$1,000–1,800',30600,55080]]}
+];
+var BCOL={'國際線':'#2a78d6'};
+function fmt(n){return n.toLocaleString('en-US');}
+function wan(n){return (Math.round(n/1000)/10).toFixed(1);}
+function budgetHTML(){
+  var lo=0,hi=0,conf=0,groups=[];
+  BUD.forEach(function(g){var gl=0,gh=0;g.rows.forEach(function(r){gl+=r[5];gh+=r[6];if(r[2]!=='est'){conf+=r[5];}});lo+=gl;hi+=gh;g.lo=gl;g.hi=gh;});
+  var slices=[['國際線機票',522081,'#2a78d6'],['住宿',(BUD[1].lo+BUD[1].hi)/2,'#eb6834'],['美國國內交通',(BUD[0].lo+BUD[0].hi)/2-522081,'#1baf7a'],['餐飲',(BUD[2].lo+BUD[2].hi)/2,'#eda100'],['門票・活動',(BUD[3].lo+BUD[3].hi)/2,'#e87ba4']];
+  var T=slices.reduce(function(a,b){return a+b[1];},0),a=-Math.PI/2,paths='',labels='',leg='';
+  slices.forEach(function(sl){var da=sl[1]/T*2*Math.PI,b=a+da,x1=100+95*Math.cos(a),y1=100+95*Math.sin(a),x2=100+95*Math.cos(b),y2=100+95*Math.sin(b);
+    paths+='<path d="M100,100 L'+x1.toFixed(1)+','+y1.toFixed(1)+' A95,95 0 '+(da>Math.PI?1:0)+' 1 '+x2.toFixed(1)+','+y2.toFixed(1)+' Z" fill="'+sl[2]+'" stroke="#fffdf9" stroke-width="2"/>';
+    var pc=(sl[1]/T*100);if(pc>=7){var m=(a+b)/2;labels+='<text x="'+(100+58*Math.cos(m)).toFixed(1)+'" y="'+(100+58*Math.sin(m)).toFixed(1)+'" text-anchor="middle" dominant-baseline="middle" font-size="12" font-weight="700" fill="#fff">'+pc.toFixed(0)+'%</text>';}
+    leg+='<li><i style="background:'+sl[2]+'"></i><span>'+sl[0]+'</span><span class="p num">'+pc.toFixed(1)+'%</span><span class="v num">約 '+wan(sl[1])+' 萬</span></li>';a=b;});
+  var h='<div class="dhead"><div><div class="n">BUDGET</div><h1>預算</h1><div class="w">3 人・美金以 1 USD ≈ 30.6 TWD 換算</div></div></div>';
+  h+='<div class="kpi"><div class="card"><div class="k">總預算</div><div class="big num">約 '+wan(lo)+'–'+wan(hi)+' 萬</div></div><div class="card"><div class="k">已訂＋有報價（金額確定）</div><div class="big num">約 '+wan(conf)+' 萬</div></div><div class="card"><div class="k">估算的部分</div><div class="big num">約 '+wan(lo-conf)+'–'+wan(hi-conf)+' 萬</div></div></div>';
+  h+='<div class="sec-t">比例（以中間值約 '+wan(T)+' 萬計算）</div><div class="pie-wrap"><svg viewBox="0 0 200 200" width="180" height="180" role="img" aria-label="預算比例圓餅圖">'+paths+labels+'</svg><ul class="leg">'+leg+'</ul></div>';
+  h+='<div class="sec-t">明細</div><div class="bl">';
+  BUD.forEach(function(g){h+='<div class="bcat">'+g.cat+'</div>';
+    g.rows.forEach(function(r){var st=r[2]==='est'?'tbd':r[2];h+='<div class="brow"><div class="bn"><div class="bt">'+r[0]+'<span class="st '+st+'">'+r[3]+'</span></div><div class="d">'+r[1]+'</div></div><div class="ba"><div class="tw num">'+(r[5]===r[6]?fmt(r[5]):fmt(r[5])+'–'+fmt(r[6]))+'</div><div class="d num">'+r[4]+'</div></div></div>';});
+    h+='<div class="brow sub"><div class="bn">'+g.cat+'小計</div><div class="ba"><div class="tw num">'+(g.lo===g.hi?fmt(g.lo):fmt(g.lo)+'–'+fmt(g.hi))+'</div></div></div>';});
+  h+='<div class="brow tot"><div class="bn">總預算（新台幣）</div><div class="ba"><div class="tw num">'+fmt(lo)+'–'+fmt(hi)+'</div></div></div></div>';
+  h+='<p class="note" style="margin-top:12px">國內線是媽媽、Judy 和小朋友 3 人；Joe 不去洛杉磯。</p>';
+  return h;
+}
+function esc(s){return s;}
+function stripHTML(){
+  var h='<a href="#overview" data-p="overview"><b>總覽</b><span class="c">全部</span></a><a href="#prep" data-p="prep"><b>準備</b><span class="c">行前</span></a><a href="#todo" data-p="todo"><b>待確認</b><span class="c">事項</span></a><a href="#budget" data-p="budget"><b>預算</b><span class="c">費用</span></a><span class="sep"></span>';
+  DAYS.forEach(function(d){h+='<a href="#'+d.id+'" data-p="'+d.id+'" data-day="'+d.day+'" class="c-'+WXCITY[d.id]+(d.g?' g':'')+'"><b>'+d.day+'</b><span class="c">'+(d.g?'典禮':'週'+d.wk)+'</span></a>';});
+  return h;
+}
+function card(o,cls){
+  var h='<div class="card '+cls+(o.none?' none':'')+'"><div class="k">'+o.k+'</div><div class="t">'+o.t+(o.s?'<span class="st '+o.s+'">'+o.sl+'</span>':'')+'</div>';
+  if(o.from)h+='<div class="row"><span class="big num">'+o.from+'</span><span class="arrow">→</span><span class="big num">'+o.to+'</span></div>';
+  if(o.d)h+='<div class="d">'+o.d+'</div>';
+  if(o.m)h+='<a class="maps" href="'+M(o.m)+'" target="_blank" rel="noopener">開啟地圖 ›</a>';
+  return h+'</div>';
+}
+function dayHTML(i){
+  var d=DAYS[i],h='';
+  h+='<div class="dhead"><div><div class="n">DAY '+String(d.n).padStart(2,'0')+'</div><h1>'+d.date+'</h1><div class="w">'+d.w+'</div></div><div class="city"><b class="c-'+WXCITY[d.id]+'">'+d.city+'</b></div></div>';
+  h+='<p class="theme'+(d.g?' g':'')+'">'+d.theme+'</p>';
+  h+='<div class="sec-t">今天天氣</div>'+wxHTML(d.id);
+  h+='<div class="sec-t">今天的交通與住宿</div><div class="info">';
+  (d.move||[]).forEach(function(m){var o=Object.assign({k:'交通'},m);h+=card(o,'move');});
+  if(!d.move)h+=card({k:'交通',t:'市區移動',d:d.stay==='la'?'自己開租車':'地鐵、走路或叫車'},'move');
+  h+=card(STAY[d.stay],'sleep');
+  h+='</div>';
+  h+='<div class="sec-t">今天要做的事</div><ul class="tl">';
+  d.acts.forEach(function(a){
+    h+='<li class="'+(a[5]||'')+'"><div class="tm num">'+a[0]+(a[1]?'<small>'+a[1]+'</small>':'')+'</div><div><div class="wh">'+a[2]+'</div>'+(a[3]?'<div class="ds">'+a[3]+'</div>':'')+(a[4]?'<a class="maps" href="'+M(a[4])+'" target="_blank" rel="noopener">開啟地圖 ›</a>':'')+'</div></li>';
+  });
+  h+='</ul>';
+  if(d.notes){h+='<div class="sec-t">提醒</div>';d.notes.forEach(function(n){h+='<p class="note">'+n+'</p>';});}
+  var p=DAYS[i-1],n=DAYS[i+1];
+  h+='<div class="pager">'+(p?'<a href="#'+p.id+'"><small>← 前一天</small><b>'+p.date+'</b></a>':'<a href="#overview"><small>← 回到</small><b>總覽</b></a>')+(n?'<a class="nx" href="#'+n.id+'"><small>下一天 →</small><b>'+n.date+'</b></a>':'<a class="nx" href="#overview"><small>回到 →</small><b>總覽</b></a>')+'</div>';
+  return h;
+}
+function overviewHTML(){
+  var h='<div class="hero"><div><div class="eb">旅の記録 · 我們的家族旅行</div><h1>Family Trip 2026</h1><p class="dt num">2026 年 12 月 11 日 — 12 月 23 日</p><p class="sb">紐約 → 華盛頓（畢業典禮）→ 洛杉磯，共 12 晚</p><p class="cd" id="cd"></p></div></div>';
+  h+='<div class="sec-t">每一天（點進去看當天完整行程）</div><div class="cl"><span><i style="background:#e4e8ee"></i>紐約</span><span><i style="background:#e2eadc"></i>華盛頓</span><span><i style="background:#f3e3d6"></i>洛杉磯</span></div><ul class="days">';
+  DAYS.forEach(function(d){h+='<li><a href="#'+d.id+'" data-day="'+d.day+'" class="r-'+WXCITY[d.id]+(d.g?' g':'')+'"><span class="d num">12/'+d.day+'<small>週'+d.wk+'</small></span><span class="c c-'+WXCITY[d.id]+'">'+d.city+'</span><span class="t">'+d.theme+'</span><span class="wxs num">'+wxShort(d.id)+'</span></a></li>';});
+  h+='</ul>';
+  h+='<div class="sec-t">其他</div><div class="info">'+card({k:'出發前',t:'行前準備',d:'ESTA、行李、保暖衣物、兒童座椅'},'sleep')+card({k:'還沒完成',t:'待確認事項',d:'機票、飯店、租車、訂位'},'move')+'</div>';
+  return h.replace('行前準備</div>','<a href="#prep" style="text-decoration:none">行前準備 ›</a></div>').replace('待確認事項</div>','<a href="#todo" style="text-decoration:none">待確認事項 ›</a></div>');
+}
+function listHTML(title,sub,items,todo){
+  var h='<div class="dhead"><div><div class="n">'+(todo?'TO CONFIRM':'BEFORE WE GO')+'</div><h1>'+title+'</h1><div class="w">'+sub+'</div></div></div><ul class="list">';
+  items.forEach(function(it){h+='<li class="'+(it[3]||'')+'"><span class="mk"></span><div>'+(it[2]?'<div class="who">負責：'+it[2]+'</div>':'')+'<div class="t">'+it[0]+'</div><div class="s">'+it[1]+'</div></div></li>';});
+  return h+'</ul>';
+}
+
+document.getElementById('strip').innerHTML=stripHTML();
+var now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+var inTrip=today.getFullYear()===2026&&today.getMonth()===11&&today.getDate()>=11&&today.getDate()<=23;
+
+function render(keep){
+  var h=(location.hash||'#overview').slice(1),main=document.getElementById('main'),html;
+  var idx=DAYS.findIndex(function(d){return d.id===h;});
+  if(idx>=0)html=dayHTML(idx);
+  else if(h==='prep')html=listHTML('行前準備','出發前一起檢查',PREP);
+  else if(h==='budget')html=budgetHTML();
+  else if(h==='todo')html=listHTML('待確認事項','還沒訂、還沒確定的事',TODO,1);
+  else{h='overview';html=overviewHTML();}
+  main.innerHTML='<section class="page">'+html+'</section>';
+  document.querySelectorAll('[data-p]').forEach(function(a){if(a.dataset.p===h)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  if(inTrip)document.querySelectorAll('[data-day="'+today.getDate()+'"]').forEach(function(a){a.classList.add('today');});
+  var cur=document.querySelector('.strip [aria-current="page"]');if(cur&&keep!==true)cur.scrollIntoView({inline:'center',block:'nearest'});
+  if(keep!==true)window.scrollTo(0,0);
+  var cd=document.getElementById('cd');
+  if(cd){var n=Math.round((new Date(2026,11,11)-today)/864e5);
+    if(n>0)cd.innerHTML='距離出發還有<b class="num">'+n+'</b>天';
+    else if(inTrip)cd.innerHTML='<b>旅行中</b><a href="#d'+today.getDate()+'">看今天的行程 ›</a>';
+    else cd.textContent='謝謝大家，一起完成這趟旅行。';}
+}
+window.addEventListener('hashchange',function(){render();});render();
+loadLive();
+(async function(){
+  try{
+    if(!window.claude||!window.claude.use)return;
+    var db=await window.claude.use('db'); if(!db)return;
+    db.collection('weather').onSnapshot(function(snap){
+      var n={}; snap.docs.forEach(function(d){if(d.exists){var v=d.data();if(v&&typeof v.hi==='number')n[d.id]=v;}});
+      WX=n; var y=window.scrollY; render(true); window.scrollTo(0,y);
+    },function(){});
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
