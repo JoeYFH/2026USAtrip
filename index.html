@@ -41,6 +41,8 @@ p{margin:0}
 .jump{display:flex;gap:6px}
 .jump a{font-size:14px;text-decoration:none;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--ink-2);background:var(--panel);white-space:nowrap}
 .jump a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.top .bar .jump{margin-left:auto}
+.drive-pill{font-size:14px;font-weight:700;text-decoration:none;padding:6px 12px;border:1px solid var(--brick);border-radius:999px;color:var(--brick);background:var(--brick-bg);white-space:nowrap}
 
 /* ---------- Day strip ---------- */
 .strip{display:flex;gap:6px;overflow-x:auto;padding:8px clamp(16px,4vw,32px) 10px;scrollbar-width:none;max-width:860px;margin:0 auto}
@@ -219,6 +221,7 @@ footer{text-align:center;color:var(--ink-3);font-size:13px;padding-block:8px 32p
   <div class="wrap bar">
     <a class="brand" href="#overview">家族旅行<small>2026 · 12/11–12/23</small></a>
     <nav class="jump" aria-label="其他頁"><a href="#overview" data-p="overview">總覽</a><a href="#prep" data-p="prep">行前準備</a><a href="#todo" data-p="todo">待確認事項</a><a href="#budget" data-p="budget">預算</a></nav>
+    <a class="drive-pill" href="https://drive.google.com/drive/folders/1yfd0X5hMB1XpWCxIDTtkpaTLv1hptSPw?usp=drive_link" target="_blank" rel="noopener">預定資料 ›</a>
   </div>
   <nav class="strip" id="strip" aria-label="選擇日期"></nav>
 </header>
