@@ -110,6 +110,8 @@ a.card.drive .t{color:var(--brick)}
 
 .note{background:var(--beige);border-radius:var(--r);padding:12px 16px;font-size:15px;color:var(--ink-2)}
 .note + .note{margin-top:8px}
+ul.notes{margin:0;padding:12px 16px 12px 34px}
+ul.notes li + li{margin-top:4px}
 .note b{color:var(--ink)}
 
 .pager{display:flex;justify-content:space-between;gap:12px;margin-top:32px}
@@ -178,6 +180,7 @@ footer{text-align:center;color:var(--ink-3);font-size:13px;padding-block:8px 32p
 .dhead .city b.c-la,.days .c.c-la{color:#a2573a}
 .strip a.g,.strip a.c-dc.g{background:#e2eadc;border-color:#b7c6ab}
 .strip a.g b{color:var(--ink)}
+.strip a.g[aria-current="page"] b{color:var(--paper)}
 .theme.g{color:var(--ink)}
 .days a.g .t{color:var(--ink);font-weight:400}
 .days a.g{border-left-color:#b7c6ab}
@@ -241,7 +244,7 @@ var DAYS = [
  {id:'d11',n:1,date:'12 月 11 日',w:'星期五',wk:'五',day:11,city:'台北 → 紐約',cc:'出發',theme:'從台北飛紐約',stay:'ny',
   move:[{t:'長榮 BR32 商務艙',s:'wait',sl:'Judy 訂',from:'台北 19:20',to:'紐約 21:05',d:'桃園第二航廈 → JFK 第一航廈，飛約 14 小時 45 分'}],
   acts:[['16:20','下午','到桃園機場第二航廈報到','長榮航空櫃台',null,'m'],['19:20','晚上','BR32 起飛','',null,'m'],['21:05','紐約時間','抵達 JFK，叫車到飯店','入境、領行李，車程約 30–40 分鐘，約 11 點入住','JFK Airport Terminal 1','m']],
-  notes:['Joe 會在紐約跟大家會合。','同一天出發、同一天到：往東飛會「賺回」時差。','到紐約是晚上，飛機上不要睡太多（尤其後半段），到飯店再好好睡，比較好調時差。小朋友想睡就讓他睡。']},
+  notes:['Joe 會在紐約跟大家會合。','到紐約是晚上，飛機上不要睡太多（尤其後半段），到飯店再好好睡，比較好調時差。小朋友想睡就讓他睡。']},
  {id:'d12',n:2,date:'12 月 12 日',w:'星期六',wk:'六',day:12,city:'紐約',cc:'紐約',theme:'中央公園，慢慢調時差',stay:'ny',
   acts:[['10:00','上午','中央公園散步','推嬰兒車慢慢逛，累了隨時回飯店','Central Park New York'],['下午','','回飯店休息','第一天時差最明顯，行程排輕鬆']],
   notes:['飯店走路就到 Queens Plaza 地鐵站，到曼哈頓約 10 分鐘。']},
@@ -258,8 +261,8 @@ var DAYS = [
   acts:[['11:00','上午','飯店退房','行李可以先寄放飯店，附近走走'],['13:45','下午','回飯店拿行李','行李多建議叫車到車站，約 20–30 分鐘；或搭地鐵 E 線到 34 街'],['14:45','下午','到紐約 Penn Station（Moynihan 大廳）','提早到，找出發月台、上車','Moynihan Train Hall','m'],['15:16','下午','Acela 火車出發','約 3 小時',null,'m'],['18:00','傍晚','到 Union Station，前往飯店','朋友接或叫車，入住 SpringHill Suites',null,'m']],
   notes:['Joe 跟大家一起從紐約搭火車過來，到 DC 後 Joe 回自己家住。','9 號車廂是「安靜車廂」，車上要小聲說話。','大人要帶護照上車。']},
  {id:'d17',n:7,date:'12 月 17 日',w:'星期四',wk:'四',day:17,city:'華盛頓',cc:'典禮',g:1,theme:'畢業典禮・George Mason University',stay:'dc',
-  move:[{t:'到學校',s:'ok',sl:'已安排',from:'飯店',to:'喬治梅森大學',d:'朋友接送或叫車，約 20–25 分鐘'}],
-  acts:[['待公告','','提早 1.5 小時到學校','拍照、找座位','George Mason University Fairfax VA','g'],['待公告','','畢業典禮','時間、確切場地待學校公告',null,'g'],['晚上','','家庭慶祝晚餐','餐廳待定']],
+  move:[{t:'到學校',s:'ok',sl:'已安排',from:'飯店',to:'EagleBank Arena',d:'朋友接送或叫車，約 20–25 分鐘；4500 Patriot Circle, Fairfax, VA 22030'}],
+  acts:[['典禮前','','提早 1.5 小時到場','拍照、找座位；要帶觀禮票','EagleBank Arena 4500 Patriot Circle Fairfax VA','g'],['依學院','','畢業典禮・EagleBank Arena','George Mason 冬季畢業典禮 12/17 在 EagleBank Arena，各學院分開舉行、時間不同（例如商學院是晚上 6:30）',null,'g'],['晚上','','家庭慶祝晚餐','餐廳待定']],
   notes:['穿暖一點，帶相機和花束。','幫小朋友準備點心和小玩具，典禮時間可能比較長。']},
  {id:'d18',n:8,date:'12 月 18 日',w:'星期五',wk:'五',day:18,city:'華盛頓',cc:'華盛頓',theme:'華盛頓一日遊',stay:'dc',
   move:[{t:'進 DC 市區',from:'飯店',to:'國家廣場',d:'叫車或朋友接送，約 40–60 分鐘'}],
@@ -295,7 +298,7 @@ var TODO = [
  ['洛杉磯飯店','12/19–12/23，4 晚','Judy'],
  ['洛杉磯租車','RAV4 等級含全險；還車時間改成晚上 7 點','Judy'],
  ['租車加租兒童安全座椅','LA 租車時一起加租，取車時確認裝好','Judy'],
- ['畢業典禮時間、場地','等學校公告','Joe'],
+ ['畢業典禮確切時間、觀禮票','場地已確定：12/17 EagleBank Arena。確認是哪個學院的場次和時間；10 月中學校會寄信，要登記並申請觀禮票','Joe'],
  ['12/15 洛克斐勒晚餐訂位','看得到溜冰場的餐廳，12 月很搶手','Joe'],
  ['Miffy 重新申辦 ESTA','換過護照，舊的 ESTA 不能用，要用新護照重新申請；官網 esta.cbp.dhs.gov，出發前至少 3 天辦好','Miffy'],
  ['確認 ESTA 需不需要更新','查 3 個人的 ESTA 是否還有效、護照有沒有換過；要更新就重新申請','Miffy'],
@@ -415,6 +418,7 @@ function dayHTML(i){
   var d=DAYS[i],h='';
   h+='<div class="dhead"><div><div class="n">DAY '+String(d.n).padStart(2,'0')+'</div><h1>'+d.date+'</h1><div class="w">'+d.w+'</div></div><div class="city"><b class="c-'+WXCITY[d.id]+'">'+d.city+'</b></div></div>';
   h+='<p class="theme'+(d.g?' g':'')+'">'+d.theme+'</p>';
+  if(d.notes)h+='<div class="sec-t">提醒</div><ul class="note notes">'+d.notes.map(function(n){return '<li>'+n+'</li>';}).join('')+'</ul>';
   h+='<div class="sec-t">今天天氣</div>'+wxHTML(d.id);
   h+='<div class="sec-t">今天的交通與住宿</div><div class="info">';
   (d.move||[]).forEach(function(m){var o=Object.assign({k:'交通'},m);h+=card(o,'move');});
@@ -426,7 +430,6 @@ function dayHTML(i){
     h+='<li class="'+(a[5]||'')+'"><div class="tm num">'+a[0]+(a[1]?'<small>'+a[1]+'</small>':'')+'</div><div><div class="wh">'+a[2]+'</div>'+(a[3]?'<div class="ds">'+a[3]+'</div>':'')+(a[4]?'<a class="maps" href="'+M(a[4])+'" target="_blank" rel="noopener">開啟地圖 ›</a>':'')+'</div></li>';
   });
   h+='</ul>';
-  if(d.notes){h+='<div class="sec-t">提醒</div>';d.notes.forEach(function(n){h+='<p class="note">'+n+'</p>';});}
   var p=DAYS[i-1],n=DAYS[i+1];
   h+='<div class="pager">'+(p?'<a href="#'+p.id+'"><small>← 前一天</small><b>'+p.date+'</b></a>':'<a href="#overview"><small>← 回到</small><b>總覽</b></a>')+(n?'<a class="nx" href="#'+n.id+'"><small>下一天 →</small><b>'+n.date+'</b></a>':'<a class="nx" href="#overview"><small>回到 →</small><b>總覽</b></a>')+'</div>';
   return h;
