@@ -455,7 +455,7 @@ function groupHTML(t,a,empty){
 function prepHTML(){
   var h=listHTML('行前準備','出發前一起檢查，照負責的人分',[]).replace('<ul class="list"></ul>','');
   h+=groupHTML('大家一起',PREP.filter(function(it){return PEOPLE.indexOf(it[2])<0;}),'');
-  PEOPLE.forEach(function(p){h+=groupHTML(p,PREP.filter(function(it){return it[2]===p;}),'目前沒有要準備的');});
+  PEOPLE.forEach(function(p){var a=PREP.filter(function(it){return it[2]===p;});if(a.length)h+=groupHTML(p,a,'');});
   return h;
 }
 function todoHTML(){
