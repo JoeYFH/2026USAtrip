@@ -286,7 +286,7 @@ var DAYS = [
 var DRIVE='https://drive.google.com/drive/folders/1yfd0X5hMB1XpWCxIDTtkpaTLv1hptSPw?usp=drive_link';
 function driveHTML(){return '<a class="card drive" href="'+DRIVE+'" target="_blank" rel="noopener"><div class="k">所有預定資料</div><div class="t">預定資料資料夾（Google 雲端）›</div><div class="d">機票、飯店、租車、門票的確認信和收據都放這裡</div></a>';}
 var PREP = [
- ['確認美國 ESTA','Judy、妹妹 2 個人要確認已核准；上官網輸入護照號碼查詢，順便看護照效期（Miffy 用簽證入境，不用 ESTA）'],
+ ['確認美國 ESTA','Judy、妹妹 2 個人要確認已核准；上官網輸入護照號碼查詢，順便看護照效期（Miffy 用簽證入境，不用 ESTA）','Judy'],
  ['Miffy 新、舊護照都要帶','用有效的 B1/B2 簽證入境，不走 ESTA；簽證在舊護照上，報到和入境時新、舊兩本一起出示','Miffy'],
  ['Judy 辦國際駕照','洛杉磯租車要用；帶護照、身分證、台灣駕照、照片到監理站辦，出國時台灣駕照也要帶','Judy'],
  ['托運行李每件壓在 23 公斤以內','長榮商務艙可以到 32 公斤，但 12/19 United 國內線每件上限 23 公斤（50 磅），超重要加錢；出發前在家先秤'],
@@ -448,10 +448,19 @@ function listHTML(title,sub,items,todo){
   return h+'</ul>';
 }
 var PEOPLE=['Judy','Joe','Miffy'];
+function groupHTML(t,a,empty){
+  var items=a.map(function(it){return [it[0],it[1],'',it[3]];});
+  return '<div class="sec-t">'+t+(a.length?'（'+a.length+'）':'')+'</div>'+(a.length?listHTML('','',items).replace(/^[\s\S]*?<ul class="list">/,'<ul class="list">'):'<p class="note">'+empty+'</p>');
+}
+function prepHTML(){
+  var h=listHTML('行前準備','出發前一起檢查，照負責的人分',[]).replace('<ul class="list"></ul>','');
+  h+=groupHTML('大家一起',PREP.filter(function(it){return PEOPLE.indexOf(it[2])<0;}),'');
+  PEOPLE.forEach(function(p){h+=groupHTML(p,PREP.filter(function(it){return it[2]===p;}),'目前沒有要準備的');});
+  return h;
+}
 function todoHTML(){
   var h=listHTML('待確認事項','還沒訂、還沒確定的事，照負責的人分',[],1).replace('<ul class="list"></ul>','')+'<div style="margin-bottom:4px">'+driveHTML()+'</div>';
-  function items(a){return a.map(function(it){return [it[0],it[1],'',it[3]];});}
-  function sec(t,a,empty){h+='<div class="sec-t">'+t+(a.length?'（'+a.length+'）':'')+'</div>';h+=a.length?listHTML('','',items(a)).replace(/^[\s\S]*?<ul class="list">/,'<ul class="list">'):'<p class="note">'+empty+'</p>';}
+  function sec(t,a,empty){h+=groupHTML(t,a,empty);}
   var open=TODO.filter(function(it){return it[3]!=='done';});
   PEOPLE.forEach(function(p){sec(p,open.filter(function(it){return it[2]===p;}),'目前沒有待辦事項');});
   var rest=open.filter(function(it){return PEOPLE.indexOf(it[2])<0;});
@@ -468,7 +477,7 @@ function render(keep){
   var h=(location.hash||'#overview').slice(1),main=document.getElementById('main'),html;
   var idx=DAYS.findIndex(function(d){return d.id===h;});
   if(idx>=0)html=dayHTML(idx);
-  else if(h==='prep')html=listHTML('行前準備','出發前一起檢查',PREP);
+  else if(h==='prep')html=prepHTML();
   else if(h==='budget')html=budgetHTML();
   else if(h==='todo')html=todoHTML();
   else{h='overview';html=overviewHTML();}
