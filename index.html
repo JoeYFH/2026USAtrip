@@ -235,7 +235,7 @@ footer{text-align:center;color:var(--ink-3);font-size:13px;padding-block:8px 32p
 <script>
 var M = function(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);};
 var STAY = {
-  ny:{k:'今晚住',t:'Courtyard 萬怡酒店（長島市）',s:'ok',sl:'已訂',d:'29-15 Queens Plaza North, Long Island City, NY 11101・家庭房・確認碼 6V8PTGB71L',m:'29-15 Queens Plaza North Long Island City NY 11101'},
+  ny:{k:'今晚住',t:'Thompson Central Park',s:'ok',sl:'已訂',d:'119 W 56th St, New York, NY 10019・兩張雙人床、中央公園景觀、高樓層、含行政酒廊・入住 15:00，退房 12:00',m:'Thompson Central Park 119 W 56th St New York NY 10019'},
   dc:{k:'今晚住',t:'SpringHill Suites 森特維爾',s:'ok',sl:'已訂',d:'5920 Trinity Parkway, Centreville, VA 20120・有停車場・媽媽、Judy 和小朋友住（Joe 住自己家）',m:'5920 Trinity Parkway Centreville VA 20120'},
   la:{k:'今晚住',t:'洛杉磯飯店',s:'wait',sl:'Judy 訂',d:'同等級家庭房，訂好後更新'},
   plane:{k:'今晚',t:'在飛機上',d:'長榮 BR015，12/25 清晨到桃園',none:1}
@@ -243,11 +243,11 @@ var STAY = {
 var DAYS = [
  {id:'d11',n:1,date:'12 月 11 日',w:'星期五',wk:'五',day:11,city:'台北 → 紐約',cc:'出發',theme:'從台北飛紐約',stay:'ny',
   move:[{t:'長榮 BR32 商務艙',s:'wait',sl:'Judy 訂',from:'台北 19:20',to:'紐約 21:05',d:'桃園第二航廈 → JFK 第一航廈，飛約 14 小時 45 分'}],
-  acts:[['16:20','下午','到桃園機場第二航廈報到','長榮航空櫃台',null,'m'],['19:20','晚上','BR32 起飛','',null,'m'],['21:05','紐約時間','抵達 JFK，叫車到飯店','入境、領行李，車程約 30–40 分鐘，約 11 點入住','JFK Airport Terminal 1','m']],
+  acts:[['16:20','下午','到桃園機場第二航廈報到','長榮航空櫃台',null,'m'],['19:20','晚上','BR32 起飛','',null,'m'],['21:05','紐約時間','抵達 JFK，叫車到飯店','入境、領行李，到中城車程約 45–60 分鐘，約 11 點多入住','JFK Airport Terminal 1','m']],
   notes:['Joe 會在紐約跟大家會合。','到紐約是晚上，飛機上不要睡太多（尤其後半段），到飯店再好好睡，比較好調時差。小朋友想睡就讓他睡。']},
  {id:'d12',n:2,date:'12 月 12 日',w:'星期六',wk:'六',day:12,city:'紐約',cc:'紐約',theme:'中央公園動物園、Quality Meats 晚餐',stay:'ny',
   acts:[['10:00','上午','中央公園動物園','海獅、企鵝、小型動物區，逛約 1.5 小時；要買門票，可以先網路買','Central Park Zoo'],['11:45','上午','中央公園散步','Gapstow 橋、池塘、Wollman 溜冰場，都在動物園旁邊','Gapstow Bridge Central Park'],['12:30','中午','午餐 · Plaza 美食街','廣場飯店地下室，選擇多、適合小朋友，順便看飯店的聖誕佈置','The Plaza Food Hall'],['14:00','下午','回飯店休息','第一天時差最明顯，睡個午覺'],['17:00','傍晚','晚餐 · Quality Meats 牛排館','57 W 58th St，中央公園南邊；週六晚上 5 點左右開始營業，要訂位','Quality Meats 57 W 58th St New York']],
-  notes:['飯店走路就到 Queensboro Plaza 站，搭 N/W 線到 5 Av/59 St 約 10 分鐘，下車就是中央公園。','晚餐排早一點，小朋友時差還沒調好，晚上會很想睡。']},
+  notes:['飯店在 56 街，走路到中央公園約 5 分鐘、到 Quality Meats 約 3 分鐘，今天全程走路就好。','晚餐排早一點，小朋友時差還沒調好，晚上會很想睡。']},
  {id:'d13',n:3,date:'12 月 13 日',w:'星期日',wk:'日',day:13,city:'紐約',cc:'紐約',theme:'免費渡輪看自由女神、華爾街、布魯克林',stay:'ny',
   acts:[['09:30','上午','搭史泰登島渡輪看自由女神','免費、不用買票，從 Whitehall 碼頭上船，單程約 25 分鐘，船會經過自由女神。到對岸下船後，再排隊搭下一班回來，來回約 1.5–2 小時','Whitehall Terminal Staten Island Ferry'],['12:00','中午','華爾街','銅牛、紐約證券交易所，從碼頭走路約 10 分鐘','Charging Bull Wall Street'],['14:30','下午','布魯克林 DUMBO','看布魯克林大橋和曼哈頓風景','DUMBO Brooklyn']],
   notes:['坐右邊（右舷）去程比較看得到自由女神。','碼頭和船上風很大，帶帽子和手套。']},
@@ -258,7 +258,7 @@ var DAYS = [
   notes:['<b>今晚先整理行李</b>，明天要退房搭火車。']},
  {id:'d16',n:6,date:'12 月 16 日',w:'星期三',wk:'三',day:16,city:'紐約 → 華盛頓',cc:'移動',theme:'搭 Acela 火車到華盛頓',stay:'dc',
   move:[{t:'Amtrak Acela 2165 商務艙',s:'ok',sl:'已訂',from:'紐約 15:16',to:'華盛頓 18:26',d:'Penn Station（Moynihan 大廳）→ Union Station・8 號車廂 7C、7D、8C、8D'},{t:'到站後前往飯店',s:'ok',sl:'已安排',from:'Union Station',to:'Centreville',d:'請朋友來接，或叫車（約 40–60 分鐘）'}],
-  acts:[['11:00','上午','飯店退房','行李可以先寄放飯店，附近走走'],['13:45','下午','回飯店拿行李','行李多建議叫車到車站，約 20–30 分鐘；或搭地鐵 E 線到 34 街'],['14:45','下午','到紐約 Penn Station（Moynihan 大廳）','提早到，找出發月台、上車','Moynihan Train Hall','m'],['15:16','下午','Acela 火車出發','約 3 小時 10 分，8 號車廂',null,'m'],['18:26','傍晚','到 Union Station，前往飯店','朋友接或叫車，入住 SpringHill Suites',null,'m']],
+  acts:[['11:00','上午','飯店退房','行李可以先寄放飯店，附近走走'],['13:45','下午','回飯店拿行李','行李多建議叫車到 Penn Station，約 15 分鐘'],['14:45','下午','到紐約 Penn Station（Moynihan 大廳）','提早到，找出發月台、上車','Moynihan Train Hall','m'],['15:16','下午','Acela 火車出發','約 3 小時 10 分，8 號車廂',null,'m'],['18:26','傍晚','到 Union Station，前往飯店','朋友接或叫車，入住 SpringHill Suites',null,'m']],
   notes:['Joe 跟大家一起從紐約搭火車過來，到 DC 後 Joe 回自己家住。','大人要帶護照上車；上車出示電子票的 QR code。']},
  {id:'d17',n:7,date:'12 月 17 日',w:'星期四',wk:'四',day:17,city:'華盛頓',cc:'典禮',g:1,theme:'畢業典禮・George Mason University',stay:'dc',
   move:[{t:'到學校',s:'ok',sl:'已安排',from:'飯店',to:'EagleBank Arena',d:'朋友接送或叫車，約 20–25 分鐘；4500 Patriot Circle, Fairfax, VA 22030'}],
@@ -300,14 +300,15 @@ var TODO = [
  ['洛杉磯租車','取車 12/19 下午 5:00 LAX（15:34 落地）→ 還車 12/23 晚上 7:00 LAX；RAV4 等級含全險，加租兒童安全座椅，取車時確認裝好','Joe'],
  ['畢業典禮確切時間、觀禮票','場地已確定：12/17 EagleBank Arena。確認是哪個學院的場次和時間；10 月中學校會寄信，要登記並申請觀禮票','Joe'],
  ['12/12 Quality Meats 晚餐訂位','週六 17:00，3 大人＋1 小孩；電話 (212) 371-7777，順便問有沒有兒童椅','Joe'],
+ ['取消長島市 Courtyard','已改住 Thompson Central Park；12/8 傍晚前取消免費，確認有收到取消信','Joe'],
+ ['寄信請 Thompson 準備兒童用品','嬰兒床或加床、墊腳凳、兒童盥洗用品（原本跟 Courtyard 要的要重新跟新飯店說）','Joe'],
  ['12/15 洛克斐勒晚餐訂位','看得到溜冰場的餐廳，12 月很搶手','Joe'],
  ['聯絡樺樺是否在紐約碰面','機票確定之後再聯絡','Miffy'],
- ['紐約飯店已訂 ✓','長島市 Courtyard，12/8 傍晚前可免費取消','','done'],
+ ['紐約飯店已訂 ✓','Thompson Central Park，12/11–12/16 五晚','','done'],
  ['華盛頓飯店已訂 ✓','SpringHill Suites 森特維爾','','done'],
  ['United UA1689 機票已訂 ✓','12/19 12:40 IAD → LAX，3 人，座位 22A、22B、22C','','done'],
  ['Acela 火車已訂 ✓','12/16 15:16 → 18:26，8 號車廂 7C、7D、8C、8D','','done'],
- ['DC 交通已安排 ✓','12/16 Union Station → 飯店、12/17 到學校、12/19 到機場','','done'],
- ['紐約飯店兒童用品已確認 ✓','墊腳凳、兒童盥洗用品、餐廳兒童餐椅、嬰兒床','','done']
+ ['DC 交通已安排 ✓','12/16 Union Station → 飯店、12/17 到學校、12/19 到機場','','done']
 ];
 
 var CLIM={
@@ -371,7 +372,7 @@ var BUD=[
   ['LA 油錢、停車、兒童座椅','油錢、飯店停車 4 晚、加租兒童座椅','est','估算','US$220–340',6732,10404],
   ['紐約市區交通','JFK 到飯店、地鐵、叫車','est','估算','US$200–400',6120,12240]]},
  {cat:'住宿',rows:[
-  ['紐約 5 晚','長島市 Courtyard 家庭房','ok','已訂','US$3,669.03',112272,112272],
+  ['紐約 5 晚','Thompson Central Park 中央公園景觀房（含稅、目的地費）','ok','已訂','US$7,729.18',236513,236513],
   ['華盛頓 3 晚','SpringHill Suites 森特維爾','ok','已訂','US$652.05',19953,19953],
   ['洛杉磯 4 晚','同等級家庭房（Judy 訂）','est','估算','US$1,100–1,700',33660,52020]]},
  {cat:'餐飲',rows:[['餐費 12 天','3 人一天約 US$150–250','est','估算','US$1,800–3,000',55080,91800]]},
