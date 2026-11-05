@@ -114,6 +114,11 @@ a.card.drive .t{color:var(--brick)}
 .tl .tm small{display:block;font-size:12px;font-weight:400;color:var(--ink-3)}
 .tl .wh{font-size:16px;font-weight:700}
 .tl .ds{font-size:15px;color:var(--ink-2)}
+.opts{margin-top:12px;border:1px dashed var(--line);border-radius:var(--r);background:var(--panel);padding:10px 14px}
+.opts-h{font-size:13px;font-weight:700;color:var(--ink-3);margin-bottom:6px}
+.opt + .opt{border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
+.opt-t{font-size:15px;font-weight:700}
+.opt-t .st{margin:0 6px 0 0}
 .maps{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;font-weight:500;color:var(--green);text-decoration:none;border:1px solid color-mix(in srgb,var(--green) 45%,transparent);border-radius:999px;padding:4px 12px;min-height:34px}
 .maps:hover{background:var(--green);color:#fff}
 
@@ -288,7 +293,7 @@ var DAYS = [
   acts:[['08:00','上午','迪士尼樂園','Anaheim，開車約 45–60 分鐘；開園前到比較好停車。3 歲適合幻想世界（Fantasyland）','Disneyland Park Anaheim'],['12:00','午餐','園區內','用 Disneyland App 手機點餐，不用排隊'],['14:45','下午','聖誕遊行（A Christmas Fantasy Parade）','每天兩場，約 14:45 和 17:15（各網站寫的不一樣，以 Disneyland App 當天時間為準）；提早 30–45 分鐘在美國小鎮大街占位置',null],['下午','','迪士尼樂園＋加州冒險樂園','睡美人城堡聖誕冬季佈置；小朋友累了可以先休息'],['18:00','晚餐','Downtown Disney','園區外的餐廳街，選擇多'],['晚上','','聖誕煙火（Believe… In Holiday Magic）','時間要看當天 App；看小朋友體力，累了就提早回飯店']],
   notes:['聖誕活動期間：2026/11/13–2027/1/6。','<b>門票</b>：3 歲以上要買票；官網目前寫 3 歲以上要「門票＋入園預約」同一天同一園區，買票後記得預約 12/21（各網站說法不一，以官網為準）。','<b>開園時間</b>：12/21 的營業時間還沒公布，出發前看官網或 App。','下載 Disneyland App：看排隊時間、遊行和煙火時間、手機點餐。','排隊太長可以考慮付費快速通關（Lightning Lane）；大人輪流玩可以問工作人員有沒有 Rider Switch。','晚上很冷，帶外套；推車可以帶自己的或在園內租。','聖誕節前一週人很多，週一比週末好一點。']},
  {id:'d22',n:12,date:'12 月 22 日',w:'星期二',wk:'二',day:22,city:'洛杉磯',cc:'LA',theme:'蓋蒂中心、聖塔莫尼卡海灘',stay:'la',
-  acts:[['08:30','早餐','République 早午餐','624 S La Brea Ave，招牌泡菜炒飯；很熱門，早點去','Republique 624 S La Brea Ave Los Angeles'],['10:30','上午','蓋蒂中心（Getty Center）','免費參觀，坐小電車上山，有花園和美術館；週一休館','Getty Center'],['12:45','午餐','Nong Lá 越南餐廳（Sawtelle 店）','2055 Sawtelle Blvd，離蓋蒂中心開車約 10 分鐘；11:30 開門。這條街是 Sawtelle 日本街，很多日式小店，飯後可以逛一下','Nong La Vietnamese Cafe 2055 Sawtelle Blvd Los Angeles'],['14:30','下午','聖塔莫尼卡碼頭','海邊、小遊樂園、摩天輪','Santa Monica Pier'],['16:30','下午','海邊看夕陽','12 月大約 4:45 日落'],['18:00','晚餐','威尼斯 Abbot Kinney','聖塔莫尼卡隔壁的小街，很多特色餐廳','Abbot Kinney Blvd Venice'],['選項','晚上','選項 A：Torrance 聖誕燈街（Candy Cane Lane）','整個社區住家佈置聖誕燈，免費，開車約 25 分鐘；2026 年日期和確切街道還沒公布（往年 12 月上旬到新年），居民希望平日晚上 10 點前來；停車很難','Candy Cane Lane Torrance'],['選項','晚上','選項 B：洛杉磯動物園燈會','12/20 沒去的話可以改今天去；12/22 有開，要先買票','Los Angeles Zoo 5333 Zoo Dr'],['選項','晚上','選項 C：Olvera 街聖誕遊行（Las Posadas）','洛杉磯最老的街，12/16–24 每晚免費；往年 18:30 小朋友打皮納塔、19:15 遊行（2026 時間還沒公布）；從聖塔莫尼卡開車約 40 分鐘','Olvera Street Los Angeles']],
+  acts:[['08:30','早餐','République 早午餐','624 S La Brea Ave，招牌泡菜炒飯；很熱門，早點去','Republique 624 S La Brea Ave Los Angeles'],['10:30','上午','蓋蒂中心（Getty Center）','免費參觀，坐小電車上山，有花園和美術館；週一休館','Getty Center'],['12:45','午餐','Nong Lá 越南餐廳（Sawtelle 店）','2055 Sawtelle Blvd，離蓋蒂中心開車約 10 分鐘；11:30 開門。這條街是 Sawtelle 日本街，很多日式小店，飯後可以逛一下','Nong La Vietnamese Cafe 2055 Sawtelle Blvd Los Angeles'],['14:30','下午','聖塔莫尼卡碼頭','海邊、小遊樂園、摩天輪','Santa Monica Pier'],['16:30','下午','海邊看夕陽','12 月大約 4:45 日落'],['18:00','晚餐','威尼斯 Abbot Kinney','聖塔莫尼卡隔壁的小街，很多特色餐廳','Abbot Kinney Blvd Venice'],['晚上','','晚上活動（自由選）','想出門的話從下面挑一個；累了就回飯店整理行李'],['選項','晚上','選項 A：Torrance 聖誕燈街（Candy Cane Lane）','整個社區住家佈置聖誕燈，免費，開車約 25 分鐘；2026 年日期和確切街道還沒公布（往年 12 月上旬到新年），居民希望平日晚上 10 點前來；停車很難','Candy Cane Lane Torrance'],['選項','晚上','選項 B：洛杉磯動物園燈會','12/20 沒去的話可以改今天去；12/22 有開，要先買票','Los Angeles Zoo 5333 Zoo Dr'],['選項','晚上','選項 C：Olvera 街聖誕遊行（Las Posadas）','洛杉磯最老的街，12/16–24 每晚免費；往年 18:30 小朋友打皮納塔、19:15 遊行（2026 時間還沒公布）；從聖塔莫尼卡開車約 40 分鐘','Olvera Street Los Angeles']],
   notes:['蓋蒂中心要付停車費。','海邊風大，帶外套。','<b>今晚整理行李</b>，明天晚上回台北。']},
  {id:'d23',n:13,date:'12 月 23 日',w:'星期三',wk:'三',day:23,city:'洛杉磯 → 台北',cc:'回家',theme:'回家',stay:'plane',
   move:[{t:'Sixt 還車',from:'飯店',to:'LAX Sixt',d:'最晚 20:00 還車；還車後搭接駁車到 B 航廈'},{t:'長榮 BR015 商務艙',s:'ok',sl:'已訂',from:'洛杉磯 23:00',to:'台北 12/25 05:40',d:'LAX 國際航廈（B 航廈）→ 桃園第二航廈・座位 10A、10D、10G'}],
@@ -444,8 +449,15 @@ function dayHTML(i){
   h+=card(STAY[d.stay],'sleep');
   h+='</div>';
   h+='<div class="sec-t">今天要做的事</div><ul class="tl">';
-  d.acts.forEach(function(a){
-    h+='<li class="'+(a[5]||'')+'"><div class="tm num">'+a[0]+(a[1]?'<small>'+a[1]+'</small>':'')+'</div><div><div class="wh">'+a[2]+'</div>'+(a[3]?'<div class="ds">'+a[3]+'</div>':'')+(a[4]?'<a class="maps" href="'+M(a[4])+'" target="_blank" rel="noopener">開啟地圖 ›</a>':'')+'</div></li>';
+  // 「選項」不是另一個行程，是前一個行程的替代方案：收進前一項底下的獨立框
+  var items=[];
+  d.acts.forEach(function(a){if(a[0]==='選項'&&items.length)items[items.length-1].opts.push(a);else items.push({a:a,opts:[]});});
+  items.forEach(function(it){var a=it.a,o='';
+    if(it.opts.length){o='<div class="opts"><div class="opts-h">其他選擇</div>';
+      it.opts.forEach(function(x){var m=/^選項\s*([A-Z])：(.*)$/.exec(x[2]),tag=m?'選項 '+m[1]:'選項',t=m?m[2]:x[2];
+        o+='<div class="opt"><div class="opt-t"><span class="st tbd">'+tag+'</span>'+t+'</div>'+(x[3]?'<div class="ds">'+x[3]+'</div>':'')+(x[4]?'<a class="maps" href="'+M(x[4])+'" target="_blank" rel="noopener">開啟地圖 ›</a>':'')+'</div>';});
+      o+='</div>';}
+    h+='<li class="'+(a[5]||'')+'"><div class="tm num">'+a[0]+(a[1]?'<small>'+a[1]+'</small>':'')+'</div><div><div class="wh">'+a[2]+'</div>'+(a[3]?'<div class="ds">'+a[3]+'</div>':'')+(a[4]?'<a class="maps" href="'+M(a[4])+'" target="_blank" rel="noopener">開啟地圖 ›</a>':'')+o+'</div></li>';
   });
   h+='</ul>';
   var p=DAYS[i-1],n=DAYS[i+1];
