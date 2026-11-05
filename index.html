@@ -281,16 +281,18 @@ var DAYS = [
   move:[{t:'United UA1689 經濟艙',s:'ok',sl:'已訂',from:'華盛頓 12:40',to:'洛杉磯 15:34',d:'杜勒斯機場 IAD → 洛杉磯 LAX，飛約 6 小時・座位 22A、22B、22C・托運行李每人 2 件已付'},{t:'Sixt 租車',s:'ok',sl:'已訂',from:'LAX 16:30 取車',to:'飯店',d:'BMW X7 或同級，含全險、兒童安全座椅、過路費、GPS；5251 W 98th St'}],
   acts:[['10:30','上午','退房，前往 IAD 機場','叫車或朋友接送，約 15 分鐘','Washington Dulles International Airport','m'],['12:40','中午','UA1689 起飛','',null,'m'],['15:34','洛杉磯時間','抵達 LAX（第 7 航廈）','領完行李，從入境樓層（下層）出門，找紫色柱子「Rental Car Shuttles」搭接駁車到 LAX 租車中心（5251 W 98th St），約 15–20 分鐘一班、車程 10–15 分鐘',null,'m'],['16:30','下午','Sixt 取車，開到飯店','訂 16:30 取車，最晚 17:30 前要到櫃台；裝好兒童安全座椅再出發','Sixt Los Angeles Airport 5251 W 98th St','m']],
   notes:['Sixt 最晚 17:30 前要到櫃台；行李多先拿推車（要付費，約 US$8）。','如果 SkyLink 輕軌已經通車，也可以從航廈直接搭到租車中心。','托運行李每件不能超過 23 公斤（50 磅），超重要加錢；前一晚在飯店先確認。','每人 2 件托運行李已經付過，報到時不用再付。','洛杉磯比東岸晚 3 小時。']},
- {id:'d20',n:10,date:'12 月 20 日',w:'星期日',wk:'日',day:20,city:'洛杉磯',cc:'LA',theme:'洛杉磯（行程待安排）',stay:'la',
-  acts:[['全天','','行程待安排','']]},
- {id:'d21',n:11,date:'12 月 21 日',w:'星期一',wk:'一',day:21,city:'洛杉磯',cc:'LA',theme:'洛杉磯（行程待安排）',stay:'la',
-  acts:[['全天','','行程待安排','']]},
- {id:'d22',n:12,date:'12 月 22 日',w:'星期二',wk:'二',day:22,city:'洛杉磯',cc:'LA',theme:'洛杉磯（行程待安排）',stay:'la',
-  acts:[['全天','','行程待安排','']],
-  notes:['<b>今晚整理行李</b>，明天晚上回台北。']},
+ {id:'d20',n:10,date:'12 月 20 日',w:'星期日',wk:'日',day:20,city:'洛杉磯',cc:'LA',theme:'葛瑞菲斯天文台、好萊塢、The Grove 聖誕',stay:'la',
+  acts:[['10:00','上午','葛瑞菲斯天文台','看好萊塢招牌和整個洛杉磯市區；週一休館，所以排今天','Griffith Observatory'],['12:00','中午','好萊塢湖公園（Lake Hollywood Park）','最近距離看好萊塢字的草地公園，小朋友可以跑；附近吃午餐','Lake Hollywood Park'],['15:00','下午','回飯店休息','小朋友睡午覺'],['17:00','傍晚','The Grove 聖誕節','大聖誕樹、復古電車，每天晚上有人造雪表演；旁邊農夫市集可以吃晚餐','The Grove Los Angeles']],
+  notes:['洛杉磯開車為主，市區很塞，每段多抓 20–30 分鐘。','停車：天文台、The Grove 都有停車場，要付費。']},
+ {id:'d21',n:11,date:'12 月 21 日',w:'星期一',wk:'一',day:21,city:'洛杉磯',cc:'LA',theme:'迪士尼樂園一整天',stay:'la',
+  acts:[['08:00','上午','出發去迪士尼樂園','Anaheim，開車約 45–60 分鐘；開園前到比較好停車','Disneyland Park Anaheim'],['全天','','迪士尼樂園','聖誕節佈置、聖誕遊行；3 歲適合幻想世界（Fantasyland）的設施，身高限制少'],['晚上','','煙火後回飯店','看小朋友體力，累了就提早走']],
+  notes:['聖誕節前一週人很多，門票要先上網買、預約日期。','下載 Disneyland App，可以看排隊時間、手機點餐。','週一人比週末少一點。']},
+ {id:'d22',n:12,date:'12 月 22 日',w:'星期二',wk:'二',day:22,city:'洛杉磯',cc:'LA',theme:'蓋蒂中心、聖塔莫尼卡海灘',stay:'la',
+  acts:[['10:00','上午','蓋蒂中心（Getty Center）','免費參觀，坐小電車上山，有花園和美術館；週一休館','Getty Center'],['13:00','下午','聖塔莫尼卡碼頭','海邊、小遊樂園、摩天輪','Santa Monica Pier'],['14:30','下午','第三街步行街','逛街、喝咖啡，碼頭走路就到','Third Street Promenade'],['16:30','傍晚','海邊看夕陽','12 月大約 4:45 日落']],
+  notes:['蓋蒂中心要付停車費。','海邊風大，帶外套。','<b>今晚整理行李</b>，明天晚上回台北。']},
  {id:'d23',n:13,date:'12 月 23 日',w:'星期三',wk:'三',day:23,city:'洛杉磯 → 台北',cc:'回家',theme:'回家',stay:'plane',
   move:[{t:'Sixt 還車',from:'飯店',to:'LAX Sixt',d:'最晚 20:00 還車；還車後搭接駁車到 B 航廈'},{t:'長榮 BR015 商務艙',s:'ok',sl:'已訂',from:'洛杉磯 23:00',to:'台北 12/25 05:40',d:'LAX 國際航廈（B 航廈）→ 桃園第二航廈・座位 10A、10D、10G'}],
-  acts:[['12:00','中午','退房','行李可以寄放飯店，白天再玩一下'],['19:00','晚上','Sixt 還車','LAX 租車中心 5251 W 98th St，最晚 20:00；早點還比較從容，還車後搭接駁車到 B 航廈（Tom Bradley 國際航廈）','Sixt Los Angeles Airport 5251 W 98th St','m'],['20:00','晚上','長榮櫃台報到','Tom Bradley 國際航廈','Tom Bradley International Terminal LAX','m'],['23:00','晚上','BR015 起飛','12/25 清晨 5:40 到桃園',null,'m']]}
+  acts:[['10:30','上午','退房','行李放車上'],['11:00','上午','加州科學中心','真的太空梭「奮進號」，大人小孩都會喜歡；免費，但要先上網預約時段','California Science Center'],['14:30','下午','曼哈頓海灘（Manhattan Beach）','離機場 15 分鐘，海邊散步','Manhattan Beach Pier'],['17:00','傍晚','In-N-Out 看飛機','機場旁邊的 In-N-Out，飛機從頭上飛過去，小朋友會很興奮','In-N-Out Burger 9149 S Sepulveda Blvd Los Angeles'],['19:00','晚上','Sixt 還車','LAX 租車中心 5251 W 98th St，最晚 20:00；早點還比較從容，還車後搭接駁車到 B 航廈（Tom Bradley 國際航廈）','Sixt Los Angeles Airport 5251 W 98th St','m'],['20:00','晚上','長榮櫃台報到','Tom Bradley 國際航廈','Tom Bradley International Terminal LAX','m'],['23:00','晚上','BR015 起飛','12/25 清晨 5:40 到桃園',null,'m']]}
 ];
 var DRIVE='https://drive.google.com/drive/folders/1yfd0X5hMB1XpWCxIDTtkpaTLv1hptSPw?usp=drive_link';
 function driveHTML(){return '<a class="card drive" href="'+DRIVE+'" target="_blank" rel="noopener"><div class="k">所有預定資料</div><div class="t">預定資料資料夾（Google 雲端）›</div><div class="d">機票、飯店、租車、門票的確認信和收據都放這裡</div></a>';}
@@ -304,6 +306,8 @@ var PREP = [
  ['錢','信用卡為主，帶少量美金現金給小費']
 ];
 var TODO = [
+ ['預約加州科學中心（12/23）','看太空梭免費，但要上網預約時段','Judy'],
+ ['買迪士尼門票（12/21）','聖誕節前一週人很多，先上網買門票、預約日期；3 歲要買票','Judy'],
  ['洛杉磯飯店','12/19–12/23，4 晚','Judy'],
  ['租車主要駕駛改成 Judy','Sixt 主要駕駛現在是 Joe，但 Joe 不去洛杉磯；改成 Judy，取車時帶護照、台灣駕照、國際駕照和 Judy 自己的信用卡','Joe'],
  ['12/18 華盛頓紀念碑觀景台門票（可選）','想上去看要先上網預約時段票；國會大廈導覽也可以一起預約','Joe'],
