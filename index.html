@@ -119,6 +119,26 @@ a.card.drive .t{color:var(--brick)}
 .opt + .opt{border-top:1px solid var(--line);margin-top:10px;padding-top:10px}
 .opt-t{font-size:15px;font-weight:700}
 .opt-t .st{margin:0 6px 0 0}
+.guide .t{margin-bottom:6px}
+.cmp{display:grid;grid-template-columns:64px 1fr 1fr;gap:8px 10px;font-size:14px;color:var(--ink-2);margin-top:6px}
+.cmp-h{font-weight:700;color:var(--ink)}
+.cmp-k{font-weight:700;color:var(--ink-3)}
+.dmap{width:100%;height:auto;margin-top:10px;display:block}
+.dmap .pk{stroke-width:1.5}
+.dmap .dl{fill:#fbeee6;stroke:#e3b89c}
+.dmap .ca{fill:#e8eef6;stroke:#a9bdd6}
+.dmap .ld{fill:var(--panel);stroke:var(--line)}
+.dmap .es{fill:var(--beige);stroke:var(--line)}
+.dmap .dd{fill:#eaf0e4;stroke:#b7c6ab}
+.dmap .pkg{fill:var(--beige);stroke:var(--line);stroke-dasharray:4 3}
+.dmap .cs{fill:var(--brick)}
+.dmap text{fill:var(--ink);text-anchor:middle;font-family:var(--f-body)}
+.dmap .pn{font-size:12px;font-weight:700}
+.dmap .lt{font-size:11px;font-weight:700}
+.dmap .ls{font-size:9.5px;fill:var(--ink-2)}
+.dmap .mk{font-size:11px;fill:var(--ink-3)}
+.route{margin:4px 0 8px;padding-left:20px;font-size:15px;color:var(--ink-2)}
+.route li + li{margin-top:4px}
 .maps{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:14px;font-weight:500;color:var(--green);text-decoration:none;border:1px solid color-mix(in srgb,var(--green) 45%,transparent);border-radius:999px;padding:4px 12px;min-height:34px}
 .maps:hover{background:var(--green);color:#fff}
 
@@ -289,7 +309,7 @@ var DAYS = [
  {id:'d20',n:10,date:'12 月 20 日',w:'星期日',wk:'日',day:20,city:'洛杉磯',cc:'LA',theme:'天文台、好萊塢、比佛利山莊、The Grove 聖誕',stay:'la',
   acts:[['10:30','上午','葛瑞菲斯天文台','俯瞰好萊塢字和整個洛杉磯市區；週一休館，所以排今天','Griffith Observatory'],['12:30','午餐','好萊塢大道','星光大道、中國戲院手印，附近吃午餐','TCL Chinese Theatre'],['14:00','下午','Stereoscope Coffee','好萊塢店 6677 Santa Monica Blvd，喝咖啡休息','Stereoscope Coffee 6677 Santa Monica Blvd Los Angeles'],['15:00','下午','比佛利山莊 Rodeo Drive','名牌街和聖誕佈置，散步拍照；小朋友可以在車上睡午覺','Rodeo Drive Beverly Hills'],['17:30','晚餐','The Grove 農夫市集','老市場小吃攤，選擇多、適合小朋友','The Original Farmers Market Los Angeles'],['19:00','晚上','The Grove 聖誕＋LACMA 城市之光','The Grove 有大聖誕樹和人造雪表演；LACMA 202 支燈柱開車 5 分鐘，晚上點燈最漂亮，免費','Urban Light LACMA'],['選項','晚上','選項 A：洛杉磯動物園燈會（L.A. Zoo Lights）','取代 The Grove。12/20 有開（11/20–1/10，12/14–16、12/24–25 休）；售票 17:45–20:45，票價 US$19 起、停車免費，要先上網買票；5333 Zoo Dr，在葛瑞菲斯公園，跟天文台同一區','Los Angeles Zoo 5333 Zoo Dr','','https://lazoo.org/plan-your-visit/special-experiences/zoolights/'],['選項','晚上','選項 B：Descanso 花園燈光森林（Enchanted Forest of Light）','取代 The Grove。11/22–1/9 每晚，17:30–22:00（最後入場時段約 20:30），今年有雷射秀和下雪結尾；要先上網買票，常賣完；在 La Cañada Flintridge，離天文台約 25 分鐘','Descanso Gardens La Canada Flintridge','','https://www.descansogardens.org/enchanted-tickets/'],['選項','','選項 C：About Time 咖啡（韓國城）','不用取代 The Grove，逛完再去；離 LACMA 開車約 15 分鐘，3287 Wilshire Blvd，兩層樓咖啡廳，芋頭、抹茶奶油咖啡；週一到週六 8:00–凌晨 1:00、週日 8:00–午夜','About Time 3287 Wilshire Blvd Los Angeles']],
   notes:['洛杉磯開車為主，市區很塞，每段多抓 20–30 分鐘。','停車：天文台、The Grove 都有停車場，要付費。']},
- {id:'d21',n:11,date:'12 月 21 日',w:'星期一',wk:'一',day:21,city:'洛杉磯',cc:'LA',theme:'迪士尼樂園一整天',stay:'la',
+ {id:'d21',n:11,date:'12 月 21 日',w:'星期一',wk:'一',day:21,city:'洛杉磯',cc:'LA',theme:'迪士尼樂園一整天',stay:'la',guide:function(){return disneyGuide();},
   acts:[['08:00','上午','出發去迪士尼樂園','Anaheim，開車約 45–60 分鐘；開園前到比較好停車（迪士尼這天例外，早點出發）','Disneyland Park Anaheim',null,'https://disneyland.disney.go.com/events-tours/holidays-at-the-disneyland-resort/'],['上午','','小小世界聖誕版（it\'s a small world Holiday）','幻想世界（Fantasyland），各國娃娃唱聖誕歌，最適合 3 歲',null,null,'https://disneyland.disney.go.com/attractions/disneyland/its-a-small-world-holiday/'],['上午','','見聖誕老人','在米奇卡通城（Toontown）；2026 年確切位置各網站說法不同，以 App 為準（官網：11/13–12/24 可以見聖誕老人）',null,null,'https://disneyland.disney.go.com/events-tours/holidays-at-the-disneyland-resort/'],['上午','','鬼屋聖誕版（Haunted Mansion Holiday）','紐奧良廣場，《聖誕夜驚魂》主題；有點暗，看小朋友會不會怕',null,null,'https://ktla.com/news/theme-parks/disneyland/disneyland-holiday-season-2026/'],['12:00','午餐','加州冒險樂園聖誕美食節（Festival of Holidays）','各國聖誕小吃攤，今年有威靈頓牛排、雞肉派雞翅等新菜',null,null,'https://disneyland.disney.go.com/events-tours/disney-california-adventure/festival-of-holidays/'],['下午','','¡Viva Navidad! 街頭派對','加州冒險樂園好萊塢區，米奇、米妮和三騎士跳舞；時間看 App',null,null,'https://disneyland.disney.go.com/en-ca/events-tours/disney-california-adventure/viva-navidad/'],['14:45','下午','聖誕遊行（A Christmas Fantasy Parade）','迪士尼樂園，每天兩場，約 14:45 和 17:15（各網站寫的不一樣，以 App 為準）；提早 30–45 分鐘在美國小鎮大街占位置',null,null,'https://disneyland.disney.go.com/events-tours/holidays-at-the-disneyland-resort/'],['18:00','晚餐','Downtown Disney','園區外的餐廳街，選擇多'],['天黑後','','睡美人城堡冬季魔法（Wintertime Enchantment）','城堡點燈、飄雪，晚上拍照最漂亮',null,null,'https://disneyland.disney.go.com/attractions/holiday-decorations/'],['晚上','','聖誕煙火（Believe… In Holiday Magic）','迪士尼樂園；時間看當天 App；看小朋友體力，累了就提早回飯店',null,null,'https://disneyland.disney.go.com/events-tours/holidays-at-the-disneyland-resort/'],['選項','晚上','選項 A：World of Color – Season of Light','加州冒險樂園的水舞聲光秀，今年有《美女與野獸》和《腦筋急轉彎》；跟煙火二選一，時間看 App',null,null,'https://www.wdwinfo.com/news-stories/whats-new-for-the-2026-holiday-season-at-disneyland/']],
   notes:['聖誕活動期間：2026/11/13–2027/1/6。','<b>門票</b>：3 歲以上要買票；官網目前寫 3 歲以上要「門票＋入園預約」同一天同一園區，買票後記得預約 12/21（各網站說法不一，以官網為準）。','<b>開園時間</b>：12/21 的營業時間還沒公布，出發前看官網或 App。','下載 Disneyland App：看排隊時間、遊行和煙火時間、手機點餐。','排隊太長可以考慮付費快速通關（Lightning Lane）；大人輪流玩可以問工作人員有沒有 Rider Switch。','晚上很冷，帶外套；推車可以帶自己的或在園內租。','聖誕節前一週人很多，週一比週末好一點。']},
  {id:'d22',n:12,date:'12 月 22 日',w:'星期二',wk:'二',day:22,city:'洛杉磯',cc:'LA',theme:'République、蓋蒂中心、聖塔莫尼卡海灘',stay:'la',
@@ -437,6 +457,49 @@ function card(o,cls){
   if(o.m)h+='<a class="maps" href="'+M(o.m)+'" target="_blank" rel="noopener">開啟地圖 ›</a>';
   return h+'</div>';
 }
+
+function disneyGuide(){
+  var g='<div class="sec-t">迪士尼攻略</div>';
+  g+='<div class="card guide"><div class="t">兩個樂園差在哪</div><div class="cmp">'+
+    '<div class="cmp-h"></div><div class="cmp-h">迪士尼樂園</div><div class="cmp-h">加州冒險樂園</div>'+
+    '<div class="cmp-k">風格</div><div>1955 年第一座迪士尼，經典童話、睡美人城堡、公主、米奇</div><div>2001 年開幕，皮克斯和漫威，刺激設施比較多</div>'+
+    '<div class="cmp-k">3 歲推薦</div><div>小小世界、小飛象、旋轉木馬、小熊維尼、米奇卡通城</div><div>汽車總動員區、皮克斯碼頭的溫和設施</div>'+
+    '<div class="cmp-k">聖誕重點</div><div>聖誕遊行、城堡點燈飄雪、聖誕煙火、小小世界和鬼屋聖誕版、聖誕老人</div><div>聖誕美食節、¡Viva Navidad! 街頭派對、World of Color 水舞秀</div>'+
+    '</div><div class="d" style="margin-top:8px">兩個樂園大門面對面，走路約 1 分鐘。買 Park Hopper 可以兩邊來回；起始園區選<b>迪士尼樂園</b>。</div></div>';
+  g+='<div class="card guide" style="margin-top:12px"><div class="t">位置示意圖</div><div class="d">不是實際比例，只標出今天會去的地方；園內詳細地圖看 Disneyland App。</div>'+
+  '<svg class="dmap" viewBox="0 0 360 400" role="img" aria-label="迪士尼樂園區示意圖">'+
+   '<text x="50" y="26" class="mk">↑ 北</text>'+
+   // Disneyland Park
+   '<rect x="96" y="14" width="250" height="184" rx="14" class="pk dl"/>'+
+   '<text x="221" y="34" class="pn">迪士尼樂園 Disneyland Park</text>'+
+   '<rect x="176" y="44" width="92" height="30" rx="8" class="ld"/><text x="222" y="63" class="lt">米奇卡通城 🎅</text>'+
+   '<rect x="176" y="80" width="92" height="40" rx="8" class="ld"/><text x="222" y="97" class="lt">幻想世界</text><text x="222" y="112" class="ls">小小世界聖誕版 ★</text>'+
+   '<rect x="106" y="80" width="64" height="58" rx="8" class="ld"/><text x="138" y="102" class="lt">紐奧良</text><text x="138" y="116" class="lt">廣場</text><text x="138" y="130" class="ls">鬼屋聖誕版</text>'+
+   '<rect x="274" y="80" width="62" height="58" rx="8" class="ld"/><text x="305" y="112" class="lt">明日世界</text>'+
+   '<path d="M222 124 l10 14 h-20 z" class="cs"/><text x="222" y="152" class="ls">睡美人城堡（晚上點燈飄雪）</text>'+
+   '<rect x="200" y="158" width="44" height="34" rx="6" class="ld"/><text x="222" y="173" class="ls">美國小鎮</text><text x="222" y="186" class="ls">大街・遊行</text>'+
+   // esplanade
+   '<rect x="96" y="204" width="250" height="26" rx="8" class="es"/><text x="221" y="221" class="lt">入口廣場（兩邊大門面對面，走路 1 分鐘）</text>'+
+   // DCA
+   '<rect x="96" y="236" width="250" height="150" rx="14" class="pk ca"/>'+
+   '<text x="221" y="256" class="pn">加州冒險樂園 California Adventure</text>'+
+   '<rect x="200" y="264" width="44" height="28" rx="6" class="ld"/><text x="222" y="282" class="ls">Buena Vista</text>'+
+   '<rect x="106" y="264" width="86" height="44" rx="8" class="ld"/><text x="149" y="282" class="lt">好萊塢區</text><text x="149" y="298" class="ls">¡Viva Navidad!</text>'+
+   '<rect x="252" y="264" width="84" height="44" rx="8" class="ld"/><text x="294" y="282" class="lt">汽車總動員區</text><text x="294" y="298" class="ls">3 歲可玩</text>'+
+   '<rect x="106" y="316" width="230" height="30" rx="8" class="ld"/><text x="221" y="335" class="lt">聖誕美食節攤位（全園都有）</text>'+
+   '<rect x="106" y="352" width="230" height="26" rx="8" class="ld"/><text x="221" y="369" class="ls">皮克斯碼頭・World of Color 水舞秀</text>'+
+   // west
+   '<rect x="14" y="120" width="72" height="190" rx="12" class="dd"/><text x="50" y="200" class="lt">Downtown</text><text x="50" y="216" class="lt">Disney</text><text x="50" y="234" class="ls">晚餐</text>'+
+   '<rect x="14" y="40" width="72" height="66" rx="10" class="pkg"/><text x="50" y="66" class="ls">停車場</text><text x="50" y="82" class="ls">搭接駁</text><text x="50" y="96" class="ls">到入口</text>'+
+  '</svg></div>';
+  g+='<div class="card guide" style="margin-top:12px"><div class="t">建議路線</div><ol class="route">'+
+   '<li><b>開園～中午｜迪士尼樂園</b>：小小世界聖誕版 → 米奇卡通城見聖誕老人 → 紐奧良廣場鬼屋聖誕版</li>'+
+   '<li><b>中午｜加州冒險樂園</b>：聖誕美食節吃午餐 → 好萊塢區 ¡Viva Navidad!</li>'+
+   '<li><b>下午｜回迪士尼樂園</b>：美國小鎮大街看聖誕遊行（約 14:45 或 17:15）</li>'+
+   '<li><b>晚上</b>：Downtown Disney 晚餐 → 城堡點燈飄雪 → 聖誕煙火（或加州冒險樂園 World of Color）</li>'+
+   '</ol><a class="maps" href="https://disneyland.disney.go.com/events-tours/holidays-at-the-disneyland-resort/" target="_blank" rel="noopener">迪士尼聖誕官網 ›</a> <a class="maps" href="'+M('Disneyland Resort Anaheim')+'" target="_blank" rel="noopener">開啟地圖 ›</a></div>';
+  return g;
+}
 function dayHTML(i){
   var d=DAYS[i],h='';
   h+='<div class="dhead"><div><div class="n">DAY '+String(d.n).padStart(2,'0')+'</div><h1>'+d.date+'</h1><div class="w">'+d.w+'</div></div><div class="city"><b class="c-'+WXCITY[d.id]+'">'+d.city+'</b></div></div>';
@@ -460,6 +523,7 @@ function dayHTML(i){
     h+='<li class="'+(a[5]||'')+'"><div class="tm num">'+a[0]+(a[1]?'<small>'+a[1]+'</small>':'')+'</div><div><div class="wh">'+a[2]+'</div>'+(a[3]?'<div class="ds">'+a[3]+'</div>':'')+(a[4]?'<a class="maps" href="'+M(a[4])+'" target="_blank" rel="noopener">開啟地圖 ›</a>':'')+(a[6]?' <a class="maps" href="'+a[6]+'" target="_blank" rel="noopener">相關網頁 ›</a>':'')+o+'</div></li>';
   });
   h+='</ul>';
+  if(d.guide)h+=d.guide();
   var p=DAYS[i-1],n=DAYS[i+1];
   h+='<div class="pager">'+(p?'<a href="#'+p.id+'"><small>← 前一天</small><b>'+p.date+'</b></a>':'<a href="#overview"><small>← 回到</small><b>總覽</b></a>')+(n?'<a class="nx" href="#'+n.id+'"><small>下一天 →</small><b>'+n.date+'</b></a>':'<a class="nx" href="#overview"><small>回到 →</small><b>總覽</b></a>')+'</div>';
   return h;
