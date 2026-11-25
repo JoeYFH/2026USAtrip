@@ -442,7 +442,7 @@ function budgetHTML(){
     g.rows.forEach(function(r){var st=r[2]==='est'?'tbd':r[2];h+='<div class="brow"><div class="bn"><div class="bt">'+r[0]+'<span class="st '+st+'">'+r[3]+'</span></div><div class="d">'+r[1]+'</div></div><div class="ba"><div class="tw num">'+(r[7]?'不計入':r[5]===r[6]?fmt(r[5]):fmt(r[5])+'–'+fmt(r[6]))+'</div><div class="d num">'+r[4]+'</div></div></div>';});
     h+='<div class="brow sub"><div class="bn">'+g.cat+'小計</div><div class="ba"><div class="tw num">'+(g.lo===g.hi?fmt(g.lo):fmt(g.lo)+'–'+fmt(g.hi))+'</div></div></div>';});
   h+='<div class="brow tot"><div class="bn">總預算（新台幣）</div><div class="ba"><div class="tw num">'+fmt(lo)+'–'+fmt(hi)+'</div></div></div></div>';
-  h+='<p class="note" style="margin-top:12px">長榮國際線機票由媽媽另外匯款給姐姐，不算在總預算和圓餅圖裡。<br>國內線是媽媽、Judy 和小朋友 3 人；Joe 不去洛杉磯。</p>';
+  h+='<p class="note" style="margin-top:12px">國內線是媽媽、Judy 和小朋友 3 人；Joe 不去洛杉磯。</p>';
   return h;
 }
 function esc(s){return s;}
